@@ -1,6 +1,6 @@
-// attempt 6
+// attempt 7
 "use strict";
-var OKLCH = (() => {
+window.OKLCH = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
