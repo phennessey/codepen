@@ -1,4 +1,4 @@
-// attempt 5
+// attempt 6
 "use strict";
 var OKLCH = (() => {
   var __defProp = Object.defineProperty;
@@ -22,11 +22,17 @@ var OKLCH = (() => {
   // main.ts
   var main_exports = {};
   __export(main_exports, {
-    build: () => build2,
-    canvasFormat: () => canvasFormat2,
-    fastFormat: () => fastFormat2,
-    parse: () => parse3,
-    toRgb: () => toRgb2
+    build: () => build,
+    canvasFormat: () => canvasFormat,
+    formatLch: () => formatLch,
+    formatRgb: () => formatRgb2,
+    generateGetSeparator: () => generateGetSeparator,
+    getCleanCtx: () => getCleanCtx,
+    initCanvasSize: () => initCanvasSize,
+    paintPixel: () => paintPixel,
+    parse: () => parse2,
+    parseAnything: () => parseAnything,
+    toRgb: () => toRgb
   });
 
   // node_modules/culori/src/rgb/parseNumber.js
@@ -2047,13 +2053,6 @@ var OKLCH = (() => {
     toTarget = oklch;
   }
   var canvasFormat = formatRgb;
-  function fastFormat(color) {
-    if (color.mode === COLOR_FN) {
-      return formatLch(color);
-    } else {
-      return formatRgb(color);
-    }
-  }
   function formatP3Css(c2) {
     return formatCss(p3(c2));
   }
@@ -2063,7 +2062,27 @@ var OKLCH = (() => {
   function parse2(value) {
     return parse_default(value.trim());
   }
+  function parseAnything(value) {
+    value = value.replace(/\s*;\s*$/, "");
+    if (/^[\w-]+:\s*(#\w+|\w+\([^)]+\))$/.test(value)) {
+      value = value.replace(/^[\w-]+:\s*/, "");
+    }
+    if (/^\s*[\d.]+%?\s+[\d.]+\s+[\d.]+\s*$/.test(value)) {
+      value = `${COLOR_FN}(${value})`;
+    }
+    return parse2(value);
+  }
   var toRgb = toGamut("rgb", COLOR_FN);
+  function formatRgb2(color) {
+    let r2 = Math.round(25500 * color.r) / 100;
+    let g = Math.round(25500 * color.g) / 100;
+    let b = Math.round(25500 * color.b) / 100;
+    if (typeof color.alpha !== "undefined" && color.alpha < 1) {
+      return `rgba(${r2}, ${g}, ${b}, ${color.alpha})`;
+    } else {
+      return `rgb(${r2}, ${g}, ${b})`;
+    }
+  }
   function formatLch(color) {
     let { alpha, c: c2, h, l } = color;
     let postfix = "";
@@ -2082,11 +2101,42 @@ var OKLCH = (() => {
     getProxyColor = rgb3;
   }
 
-  // main.ts
-  var build2 = build;
-  var toRgb2 = toRgb;
-  var canvasFormat2 = canvasFormat;
-  var parse3 = parse2;
-  var fastFormat2 = fastFormat;
+  // lib/canvas.ts
+  function getCleanCtx(canvas) {
+    let ctx = canvas.getContext("2d", {
+      colorSpace: support.get().p3 ? "display-p3" : "srgb"
+    });
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    return ctx;
+  }
+  function initCanvasSize(canvas) {
+    let pixelRation = Math.ceil(window.devicePixelRatio);
+    let canvasSize = canvas.getBoundingClientRect();
+    let width = canvasSize.width * pixelRation;
+    let height = canvasSize.height * pixelRation;
+    canvas.width = width;
+    canvas.height = height;
+    return [width, height];
+  }
+
+  // lib/paint.ts
+  function generateGetSeparator() {
+    let separators = {};
+    return function(prevSpace, nextSpace) {
+      let line = separators[`${prevSpace}${nextSpace}`];
+      if (line) {
+        return line;
+      } else {
+        return separators[`${prevSpace}${nextSpace}`] = [];
+      }
+    };
+  }
+  function paintPixel(pixels, x, y, pixel) {
+    let pos = 4 * ((pixels.height - y) * pixels.width + x);
+    pixels.data[pos] = pixel[1];
+    pixels.data[pos + 1] = pixel[2];
+    pixels.data[pos + 2] = pixel[3];
+    pixels.data[pos + 3] = 255;
+  }
   return __toCommonJS(main_exports);
 })();
