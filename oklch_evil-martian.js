@@ -1,4 +1,2039 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const l of i)if(l.type==="childList")for(const a of l.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&r(a)}).observe(document,{childList:!0,subtree:!0});function n(i){const l={};return i.integrity&&(l.integrity=i.integrity),i.referrerPolicy&&(l.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?l.credentials="include":i.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function r(i){if(i.ep)return;i.ep=!0;const l=n(i);fetch(i.href,l)}})();const Wn=(e,t)=>{if(typeof e=="number"){if(t===3)return{mode:"rgb",r:(e>>8&15|e>>4&240)/255,g:(e>>4&15|e&240)/255,b:(e&15|e<<4&240)/255};if(t===4)return{mode:"rgb",r:(e>>12&15|e>>8&240)/255,g:(e>>8&15|e>>4&240)/255,b:(e>>4&15|e&240)/255,alpha:(e&15|e<<4&240)/255};if(t===6)return{mode:"rgb",r:(e>>16&255)/255,g:(e>>8&255)/255,b:(e&255)/255};if(t===8)return{mode:"rgb",r:(e>>24&255)/255,g:(e>>16&255)/255,b:(e>>8&255)/255,alpha:(e&255)/255}}},Qr={aliceblue:15792383,antiquewhite:16444375,aqua:65535,aquamarine:8388564,azure:15794175,beige:16119260,bisque:16770244,black:0,blanchedalmond:16772045,blue:255,blueviolet:9055202,brown:10824234,burlywood:14596231,cadetblue:6266528,chartreuse:8388352,chocolate:13789470,coral:16744272,cornflowerblue:6591981,cornsilk:16775388,crimson:14423100,cyan:65535,darkblue:139,darkcyan:35723,darkgoldenrod:12092939,darkgray:11119017,darkgreen:25600,darkgrey:11119017,darkkhaki:12433259,darkmagenta:9109643,darkolivegreen:5597999,darkorange:16747520,darkorchid:10040012,darkred:9109504,darksalmon:15308410,darkseagreen:9419919,darkslateblue:4734347,darkslategray:3100495,darkslategrey:3100495,darkturquoise:52945,darkviolet:9699539,deeppink:16716947,deepskyblue:49151,dimgray:6908265,dimgrey:6908265,dodgerblue:2003199,firebrick:11674146,floralwhite:16775920,forestgreen:2263842,fuchsia:16711935,gainsboro:14474460,ghostwhite:16316671,gold:16766720,goldenrod:14329120,gray:8421504,green:32768,greenyellow:11403055,grey:8421504,honeydew:15794160,hotpink:16738740,indianred:13458524,indigo:4915330,ivory:16777200,khaki:15787660,lavender:15132410,lavenderblush:16773365,lawngreen:8190976,lemonchiffon:16775885,lightblue:11393254,lightcoral:15761536,lightcyan:14745599,lightgoldenrodyellow:16448210,lightgray:13882323,lightgreen:9498256,lightgrey:13882323,lightpink:16758465,lightsalmon:16752762,lightseagreen:2142890,lightskyblue:8900346,lightslategray:7833753,lightslategrey:7833753,lightsteelblue:11584734,lightyellow:16777184,lime:65280,limegreen:3329330,linen:16445670,magenta:16711935,maroon:8388608,mediumaquamarine:6737322,mediumblue:205,mediumorchid:12211667,mediumpurple:9662683,mediumseagreen:3978097,mediumslateblue:8087790,mediumspringgreen:64154,mediumturquoise:4772300,mediumvioletred:13047173,midnightblue:1644912,mintcream:16121850,mistyrose:16770273,moccasin:16770229,navajowhite:16768685,navy:128,oldlace:16643558,olive:8421376,olivedrab:7048739,orange:16753920,orangered:16729344,orchid:14315734,palegoldenrod:15657130,palegreen:10025880,paleturquoise:11529966,palevioletred:14381203,papayawhip:16773077,peachpuff:16767673,peru:13468991,pink:16761035,plum:14524637,powderblue:11591910,purple:8388736,rebeccapurple:6697881,red:16711680,rosybrown:12357519,royalblue:4286945,saddlebrown:9127187,salmon:16416882,sandybrown:16032864,seagreen:3050327,seashell:16774638,sienna:10506797,silver:12632256,skyblue:8900331,slateblue:6970061,slategray:7372944,slategrey:7372944,snow:16775930,springgreen:65407,steelblue:4620980,tan:13808780,teal:32896,thistle:14204888,tomato:16737095,turquoise:4251856,violet:15631086,wheat:16113331,white:16777215,whitesmoke:16119285,yellow:16776960,yellowgreen:10145074},jr=e=>Wn(Qr[e.toLowerCase()],6),Jr=/^#?([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3})$/i,ei=e=>{let t;return(t=e.match(Jr))?Wn(parseInt(t[1],16),t[1].length):void 0},A="([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)",be=`${A}%`,Kt=`(?:${A}%|${A})`,ti=`(?:${A}(deg|grad|rad|turn)|${A})`,le="\\s*,\\s*",ni=new RegExp(`^rgba?\\(\\s*${A}${le}${A}${le}${A}\\s*(?:,\\s*${Kt}\\s*)?\\)$`),ri=new RegExp(`^rgba?\\(\\s*${be}${le}${be}${le}${be}\\s*(?:,\\s*${Kt}\\s*)?\\)$`),ii=e=>{let t={mode:"rgb"},n;if(n=e.match(ni))n[1]!==void 0&&(t.r=n[1]/255),n[2]!==void 0&&(t.g=n[2]/255),n[3]!==void 0&&(t.b=n[3]/255);else if(n=e.match(ri))n[1]!==void 0&&(t.r=n[1]/100),n[2]!==void 0&&(t.g=n[2]/100),n[3]!==void 0&&(t.b=n[3]/100);else return;return n[4]!==void 0?t.alpha=Math.max(0,Math.min(1,n[4]/100)):n[5]!==void 0&&(t.alpha=Math.max(0,Math.min(1,+n[5]))),t},xe=(e,t)=>e===void 0?void 0:typeof e!="object"?Jn(e):e.mode!==void 0?e:t?{...e,mode:t}:void 0,H=(e="rgb")=>t=>(t=xe(t,e))!==void 0?t.mode===e?t:P[t.mode][e]?P[t.mode][e](t):e==="rgb"?P[t.mode].rgb(t):P.rgb[e](P[t.mode].rgb(t)):void 0,P={},Zn={},De=[],Qn={},li=e=>e,R=e=>(P[e.mode]={...P[e.mode],...e.toMode},Object.keys(e.fromMode||{}).forEach(t=>{P[t]||(P[t]={}),P[t][e.mode]=e.fromMode[t]}),e.ranges||(e.ranges={}),e.difference||(e.difference={}),e.channels.forEach(t=>{if(e.ranges[t]===void 0&&(e.ranges[t]=[0,1]),!e.interpolate[t])throw new Error(`Missing interpolator for: ${t}`);typeof e.interpolate[t]=="function"&&(e.interpolate[t]={use:e.interpolate[t]}),e.interpolate[t].fixup||(e.interpolate[t].fixup=li)}),Zn[e.mode]=e,(e.parse||[]).forEach(t=>{ai(t,e.mode)}),H(e.mode)),V=e=>Zn[e],ai=(e,t)=>{if(typeof e=="string"){if(!t)throw new Error("'mode' required when 'parser' is a string");Qn[e]=t}else typeof e=="function"&&De.indexOf(e)<0&&De.push(e)},St=/[^\x00-\x7F]|[a-zA-Z_]/,oi=/[^\x00-\x7F]|[-\w]/,s={Function:"function",Ident:"ident",Number:"number",Percentage:"percentage",ParenClose:")",None:"none",Hue:"hue",Alpha:"alpha"};let h=0;function _e(e){let t=e[h],n=e[h+1];return t==="-"||t==="+"?/\d/.test(n)||n==="."&&/\d/.test(e[h+2]):t==="."?/\d/.test(n):/\d/.test(t)}function $t(e){if(h>=e.length)return!1;let t=e[h];if(St.test(t))return!0;if(t==="-"){if(e.length-h<2)return!1;let n=e[h+1];return!!(n==="-"||St.test(n))}return!1}const si={deg:1,rad:180/Math.PI,grad:9/10,turn:360};function ce(e){let t="";if((e[h]==="-"||e[h]==="+")&&(t+=e[h++]),t+=Ce(e),e[h]==="."&&/\d/.test(e[h+1])&&(t+=e[h++]+Ce(e)),(e[h]==="e"||e[h]==="E")&&((e[h+1]==="-"||e[h+1]==="+")&&/\d/.test(e[h+2])?t+=e[h++]+e[h++]+Ce(e):/\d/.test(e[h+1])&&(t+=e[h++]+Ce(e))),$t(e)){let n=Ge(e);return n==="deg"||n==="rad"||n==="turn"||n==="grad"?{type:s.Hue,value:t*si[n]}:void 0}return e[h]==="%"?(h++,{type:s.Percentage,value:+t}):{type:s.Number,value:+t}}function Ce(e){let t="";for(;/\d/.test(e[h]);)t+=e[h++];return t}function Ge(e){let t="";for(;h<e.length&&oi.test(e[h]);)t+=e[h++];return t}function ui(e){let t=Ge(e);return e[h]==="("?(h++,{type:s.Function,value:t}):t==="none"?{type:s.None,value:void 0}:{type:s.Ident,value:t}}function fi(e=""){let t=e.trim(),n=[],r;for(h=0;h<t.length;){if(r=t[h++],r===`
-`||r==="	"||r===" "){for(;h<t.length&&(t[h]===`
-`||t[h]==="	"||t[h]===" ");)h++;continue}if(r===",")return;if(r===")"){n.push({type:s.ParenClose});continue}if(r==="+"){if(h--,_e(t)){n.push(ce(t));continue}return}if(r==="-"){if(h--,_e(t)){n.push(ce(t));continue}if($t(t)){n.push({type:s.Ident,value:Ge(t)});continue}return}if(r==="."){if(h--,_e(t)){n.push(ce(t));continue}return}if(r==="/"){for(;h<t.length&&(t[h]===`
-`||t[h]==="	"||t[h]===" ");)h++;let i;if(_e(t)&&(i=ce(t),i.type!==s.Hue)){n.push({type:s.Alpha,value:i});continue}if($t(t)&&Ge(t)==="none"){n.push({type:s.Alpha,value:{type:s.None,value:void 0}});continue}return}if(/\d/.test(r)){h--,n.push(ce(t));continue}if(St.test(r)){h--,n.push(ui(t));continue}return}return n}function di(e){e._i=0;let t=e[e._i++];if(!t||t.type!==s.Function||t.value!=="color"||(t=e[e._i++],t.type!==s.Ident))return;const n=Qn[t.value];if(!n)return;const r={mode:n},i=jn(e,!1);if(!i)return;const l=V(n).channels;for(let a=0,o,c;a<l.length;a++)o=i[a],c=l[a],o.type!==s.None&&(r[c]=o.type===s.Number?o.value:o.value/100,c==="alpha"&&(r[c]=Math.max(0,Math.min(1,r[c]))));return r}function jn(e,t){const n=[];let r;for(;e._i<e.length;){if(r=e[e._i++],r.type===s.None||r.type===s.Number||r.type===s.Alpha||r.type===s.Percentage||t&&r.type===s.Hue){n.push(r);continue}if(r.type===s.ParenClose){if(e._i<e.length)return;continue}return}if(!(n.length<3||n.length>4)){if(n.length===4){if(n[3].type!==s.Alpha)return;n[3]=n[3].value}return n.length===3&&n.push({type:s.None,value:void 0}),n.every(i=>i.type!==s.Alpha)?n:void 0}}function ci(e,t){e._i=0;let n=e[e._i++];if(!n||n.type!==s.Function)return;let r=jn(e,t);if(r)return r.unshift(n.value),r}const Jn=e=>{if(typeof e!="string")return;const t=fi(e),n=t?ci(t,!0):void 0;let r,i=0,l=De.length;for(;i<l;)if((r=De[i++](e,n))!==void 0)return r;return t?di(t):void 0};function hi(e,t){if(!t||t[0]!=="rgb"&&t[0]!=="rgba")return;const n={mode:"rgb"},[,r,i,l,a]=t;if(!(r.type===s.Hue||i.type===s.Hue||l.type===s.Hue))return r.type!==s.None&&(n.r=r.type===s.Number?r.value/255:r.value/100),i.type!==s.None&&(n.g=i.type===s.Number?i.value/255:i.value/100),l.type!==s.None&&(n.b=l.type===s.Number?l.value/255:l.value/100),a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const pi=e=>e==="transparent"?{mode:"rgb",r:0,g:0,b:0,alpha:0}:void 0,gi=(e,t,n)=>e+n*(t-e),mi=e=>{let t=[];for(let n=0;n<e.length-1;n++){let r=e[n],i=e[n+1];r===void 0&&i===void 0?t.push(void 0):r!==void 0&&i!==void 0?t.push([r,i]):t.push(r!==void 0?[r,r]:[i,i])}return t},bi=e=>t=>{let n=mi(t);return r=>{let i=r*n.length,l=r>=1?n.length-1:Math.max(Math.floor(i),0),a=n[l];return a===void 0?void 0:e(a[0],a[1],i-l)}},x=bi(gi),ke=e=>{let t=!1,n=e.map(r=>r!==void 0?(t=!0,r):1);return t?n:e},rt={mode:"rgb",channels:["r","g","b","alpha"],parse:[hi,ei,ii,jr,pi,"srgb"],serialize:"srgb",interpolate:{r:x,g:x,b:x,alpha:{use:x,fixup:ke}},gamut:!0,white:{r:1,g:1,b:1},black:{r:0,g:0,b:0}},ct=(e=0)=>{const t=Math.abs(e);return t<=.04045?e/12.92:(Math.sign(e)||1)*Math.pow((t+.055)/1.055,2.4)},Ee=({r:e,g:t,b:n,alpha:r})=>{let i={mode:"lrgb",r:ct(e),g:ct(t),b:ct(n)};return r!==void 0&&(i.alpha=r),i},Xt=e=>{let{r:t,g:n,b:r,alpha:i}=Ee(e),l={mode:"xyz65",x:.4123907992659593*t+.357584339383878*n+.1804807884018343*r,y:.2126390058715102*t+.715168678767756*n+.0721923153607337*r,z:.0193308187155918*t+.119194779794626*n+.9505321522496607*r};return i!==void 0&&(l.alpha=i),l},ht=(e=0)=>{const t=Math.abs(e);return t>.0031308?(Math.sign(e)||1)*(1.055*Math.pow(t,1/2.4)-.055):e*12.92},Le=({r:e,g:t,b:n,alpha:r},i="rgb")=>{let l={mode:i,r:ht(e),g:ht(t),b:ht(n)};return r!==void 0&&(l.alpha=r),l},Yt=({x:e,y:t,z:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Le({r:e*3.2409699419045226-t*1.537383177570094-.4986107602930034*n,g:e*-.9692436362808796+t*1.8759675015077204+.0415550574071756*n,b:e*.0556300796969936-t*.2039769588889765+1.0569715142428784*n});return r!==void 0&&(i.alpha=r),i},I=e=>(e=e%360)<0?e+360:e,yi=(e,t)=>e.map((n,r,i)=>{if(n===void 0)return n;let l=I(n);return r===0||e[r-1]===void 0?l:t(l-I(i[r-1]))}).reduce((n,r)=>!n.length||r===void 0||n[n.length-1]===void 0?(n.push(r),n):(n.push(r+n[n.length-1]),n),[]),er=e=>yi(e,t=>Math.abs(t)<=180?t:t-360*Math.sign(t)),vi=(e,t)=>{if(e.h===void 0||t.h===void 0||!e.s||!t.s)return 0;let n=I(e.h),r=I(t.h),i=Math.sin((r-n+360)/2*Math.PI/180);return 2*Math.sqrt(e.s*t.s)*i},xi=(e,t)=>{if(e.h===void 0||t.h===void 0||!e.c||!t.c)return 0;let n=I(e.h),r=I(t.h),i=Math.sin((r-n+360)/2*Math.PI/180);return 2*Math.sqrt(e.c*t.c)*i},wi=(e="rgb",t=[1,1,1,0])=>{let n=V(e),r=n.channels,i=n.difference,l=H(e);return(a,o)=>{let c=l(a),d=l(o);return Math.sqrt(r.reduce((u,f,g)=>{let y=i[f]?i[f](c,d):c[f]-d[f];return u+(t[g]||0)*Math.pow(isNaN(y)?0:y,2)},0))}},tr=e=>{let t=e.reduce((r,i)=>{if(i!==void 0){let l=i*Math.PI/180;r.sin+=Math.sin(l),r.cos+=Math.cos(l)}return r},{sin:0,cos:0}),n=Math.atan2(t.sin,t.cos)*180/Math.PI;return n<0?360+n:n},Ue=({l:e,a:t,b:n,alpha:r},i="lch")=>{t===void 0&&(t=0),n===void 0&&(n=0);let l=Math.sqrt(t*t+n*n),a={mode:i,l:e,c:l};return l&&(a.h=I(Math.atan2(n,t)*180/Math.PI)),r!==void 0&&(a.alpha=r),a},Ve=({l:e,c:t,h:n,alpha:r},i="lab")=>{n===void 0&&(n=0);let l={mode:i,l:e,a:t?t*Math.cos(n/180*Math.PI):0,b:t?t*Math.sin(n/180*Math.PI):0};return r!==void 0&&(l.alpha=r),l},te={X:.3457/.3585,Y:1,Z:(1-.3457-.3585)/.3585};function Mi({h:e,s:t,l:n,alpha:r}){e=I(e!==void 0?e:0),t===void 0&&(t=0),n===void 0&&(n=0);let i=n+t*(n<.5?n:1-n),l=i-(i-n)*2*Math.abs(e/60%2-1),a;switch(Math.floor(e/60)){case 0:a={r:i,g:l,b:2*n-i};break;case 1:a={r:l,g:i,b:2*n-i};break;case 2:a={r:2*n-i,g:i,b:l};break;case 3:a={r:2*n-i,g:l,b:i};break;case 4:a={r:l,g:2*n-i,b:i};break;case 5:a={r:i,g:2*n-i,b:l};break;default:a={r:2*n-i,g:2*n-i,b:2*n-i}}return a.mode="rgb",r!==void 0&&(a.alpha=r),a}function ki({r:e,g:t,b:n,alpha:r}){e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Math.max(e,t,n),l=Math.min(e,t,n),a={mode:"hsl",s:i===l?0:(i-l)/(1-Math.abs(i+l-1)),l:.5*(i+l)};return i-l!==0&&(a.h=(i===e?(t-n)/(i-l)+(t<n)*6:i===t?(n-e)/(i-l)+2:(e-t)/(i-l)+4)*60),r!==void 0&&(a.alpha=r),a}const Ei=(e,t)=>{switch(t){case"deg":return+e;case"rad":return e/Math.PI*180;case"grad":return e/10*9;case"turn":return e*360}},Li=new RegExp(`^hsla?\\(\\s*${ti}${le}${be}${le}${be}\\s*(?:,\\s*${Kt}\\s*)?\\)$`),Si=e=>{let t=e.match(Li);if(!t)return;let n={mode:"hsl"};return t[3]!==void 0?n.h=+t[3]:t[1]!==void 0&&t[2]!==void 0&&(n.h=Ei(t[1],t[2])),t[4]!==void 0&&(n.s=Math.min(Math.max(0,t[4]/100),1)),t[5]!==void 0&&(n.l=Math.min(Math.max(0,t[5]/100),1)),t[6]!==void 0?n.alpha=Math.max(0,Math.min(1,t[6]/100)):t[7]!==void 0&&(n.alpha=Math.max(0,Math.min(1,+t[7]))),n};function $i(e,t){if(!t||t[0]!=="hsl"&&t[0]!=="hsla")return;const n={mode:"hsl"},[,r,i,l,a]=t;if(r.type!==s.None){if(r.type===s.Percentage)return;n.h=r.value}if(i.type!==s.None){if(i.type===s.Hue)return;n.s=i.value/100}if(l.type!==s.None){if(l.type===s.Hue)return;n.l=l.value/100}return a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const Pi={mode:"hsl",toMode:{rgb:Mi},fromMode:{rgb:ki},channels:["h","s","l","alpha"],ranges:{h:[0,360]},gamut:"rgb",parse:[$i,Si],serialize:e=>`hsl(${e.h!==void 0?e.h:"none"} ${e.s!==void 0?e.s*100+"%":"none"} ${e.l!==void 0?e.l*100+"%":"none"}${e.alpha<1?` / ${e.alpha}`:""})`,interpolate:{h:{use:x,fixup:er},s:x,l:x,alpha:{use:x,fixup:ke}},difference:{h:vi},average:{h:tr}},nr=Math.pow(29,3)/Math.pow(3,3),rr=Math.pow(6,3)/Math.pow(29,3);let pt=e=>Math.pow(e,3)>rr?Math.pow(e,3):(116*e-16)/nr;const ir=({l:e,a:t,b:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=(e+16)/116,l=t/500+i,a=i-n/200,o={mode:"xyz50",x:pt(l)*te.X,y:pt(i)*te.Y,z:pt(a)*te.Z};return r!==void 0&&(o.alpha=r),o},Ri=({x:e,y:t,z:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Le({r:e*3.1341359569958707-t*1.6173863321612538-.4906619460083532*n,g:e*-.978795502912089+t*1.916254567259524+.03344273116131949*n,b:e*.07195537988411677-t*.2289768264158322+1.405386058324125*n});return r!==void 0&&(i.alpha=r),i},lr=e=>Ri(ir(e)),Ti=e=>{let{r:t,g:n,b:r,alpha:i}=Ee(e),l={mode:"xyz50",x:.436065742824811*t+.3851514688337912*n+.14307845442264197*r,y:.22249319175623702*t+.7168870538238823*n+.06061979053616537*r,z:.013923904500943465*t+.09708128566574634*n+.7140993584005155*r};return i!==void 0&&(l.alpha=i),l},gt=e=>e>rr?Math.cbrt(e):(nr*e+16)/116,ar=({x:e,y:t,z:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=gt(e/te.X),l=gt(t/te.Y),a=gt(n/te.Z),o={mode:"lab",l:116*l-16,a:500*(i-l),b:200*(l-a)};return r!==void 0&&(o.alpha=r),o},or=e=>{let t=ar(Ti(e));return e.r===e.b&&e.b===e.g&&(t.a=t.b=0),t};function _i(e,t){if(!t||t[0]!=="lab")return;const n={mode:"lab"},[,r,i,l,a]=t;if(!(r.type===s.Hue||i.type===s.Hue||l.type===s.Hue))return r.type!==s.None&&(n.l=Math.min(Math.max(0,r.value),100)),i.type!==s.None&&(n.a=i.type===s.Number?i.value:i.value*125/100),l.type!==s.None&&(n.b=l.type===s.Number?l.value:l.value*125/100),a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const sr={mode:"lab",toMode:{xyz50:ir,rgb:lr},fromMode:{xyz50:ar,rgb:or},channels:["l","a","b","alpha"],ranges:{l:[0,100],a:[-125,125],b:[-125,125]},parse:[_i],serialize:e=>`lab(${e.l!==void 0?e.l:"none"} ${e.a!==void 0?e.a:"none"} ${e.b!==void 0?e.b:"none"}${e.alpha<1?` / ${e.alpha}`:""})`,interpolate:{l:x,a:x,b:x,alpha:{use:x,fixup:ke}}};function Ci(e,t){if(!t||t[0]!=="lch")return;const n={mode:"lch"},[,r,i,l,a]=t;if(r.type!==s.None){if(r.type===s.Hue)return;n.l=Math.min(Math.max(0,r.value),100)}if(i.type!==s.None&&(n.c=Math.max(0,i.type===s.Number?i.value:i.value*150/100)),l.type!==s.None){if(l.type===s.Percentage)return;n.h=l.value}return a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const ur={mode:"lch",toMode:{lab:Ve,rgb:e=>lr(Ve(e))},fromMode:{rgb:e=>Ue(or(e)),lab:Ue},channels:["l","c","h","alpha"],ranges:{l:[0,100],c:[0,150],h:[0,360]},parse:[Ci],serialize:e=>`lch(${e.l!==void 0?e.l:"none"} ${e.c!==void 0?e.c:"none"} ${e.h!==void 0?e.h:"none"}${e.alpha<1?` / ${e.alpha}`:""})`,interpolate:{h:{use:x,fixup:er},c:x,l:x,alpha:{use:x,fixup:ke}},difference:{h:xi},average:{h:tr}},Oi={...rt,mode:"lrgb",toMode:{rgb:Le},fromMode:{rgb:Ee},parse:["srgb-linear"],serialize:"srgb-linear"},fr=({r:e,g:t,b:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Math.cbrt(.412221469470763*e+.5363325372617348*t+.0514459932675022*n),l=Math.cbrt(.2119034958178252*e+.6806995506452344*t+.1073969535369406*n),a=Math.cbrt(.0883024591900564*e+.2817188391361215*t+.6299787016738222*n),o={mode:"oklab",l:.210454268309314*i+.7936177747023054*l-.0040720430116193*a,a:1.9779985324311684*i-2.42859224204858*l+.450593709617411*a,b:.0259040424655478*i+.7827717124575296*l-.8086757549230774*a};return r!==void 0&&(o.alpha=r),o},dr=e=>{let t=fr(Ee(e));return e.r===e.b&&e.b===e.g&&(t.a=t.b=0),t},cr=({l:e,a:t,b:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Math.pow(e+.3963377773761749*t+.2158037573099136*n,3),l=Math.pow(e-.1055613458156586*t-.0638541728258133*n,3),a=Math.pow(e-.0894841775298119*t-1.2914855480194092*n,3),o={mode:"lrgb",r:4.076741636075957*i-3.3077115392580616*l+.2309699031821044*a,g:-1.2684379732850317*i+2.6097573492876887*l-.3413193760026573*a,b:-.0041960761386756*i-.7034186179359362*l+1.7076146940746117*a};return r!==void 0&&(o.alpha=r),o},hr=e=>Le(cr(e));function Ni(e,t){if(!t||t[0]!=="oklab")return;const n={mode:"oklab"},[,r,i,l,a]=t;if(!(r.type===s.Hue||i.type===s.Hue||l.type===s.Hue))return r.type!==s.None&&(n.l=Math.min(Math.max(0,r.type===s.Number?r.value:r.value/100),1)),i.type!==s.None&&(n.a=i.type===s.Number?i.value:i.value*.4/100),l.type!==s.None&&(n.b=l.type===s.Number?l.value:l.value*.4/100),a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const Ai={...sr,mode:"oklab",toMode:{lrgb:cr,rgb:hr},fromMode:{lrgb:fr,rgb:dr},ranges:{l:[0,1],a:[-.4,.4],b:[-.4,.4]},parse:[Ni],serialize:e=>`oklab(${e.l!==void 0?e.l:"none"} ${e.a!==void 0?e.a:"none"} ${e.b!==void 0?e.b:"none"}${e.alpha<1?` / ${e.alpha}`:""})`};function qi(e,t){if(!t||t[0]!=="oklch")return;const n={mode:"oklch"},[,r,i,l,a]=t;if(r.type!==s.None){if(r.type===s.Hue)return;n.l=Math.min(Math.max(0,r.type===s.Number?r.value:r.value/100),1)}if(i.type!==s.None&&(n.c=Math.max(0,i.type===s.Number?i.value:i.value*.4/100)),l.type!==s.None){if(l.type===s.Percentage)return;n.h=l.value}return a.type!==s.None&&(n.alpha=Math.min(1,Math.max(0,a.type===s.Number?a.value:a.value/100))),n}const zi={...ur,mode:"oklch",toMode:{oklab:e=>Ve(e,"oklab"),rgb:e=>hr(Ve(e,"oklab"))},fromMode:{rgb:e=>Ue(dr(e),"oklch"),oklab:e=>Ue(e,"oklch")},parse:[qi],serialize:e=>`oklch(${e.l!==void 0?e.l:"none"} ${e.c!==void 0?e.c:"none"} ${e.h!==void 0?e.h:"none"}${e.alpha<1?` / ${e.alpha}`:""})`,ranges:{l:[0,1],c:[0,.4],h:[0,360]}},un=e=>{let{r:t,g:n,b:r,alpha:i}=Ee(e),l={mode:"xyz65",x:.486570948648216*t+.265667693169093*n+.1982172852343625*r,y:.2289745640697487*t+.6917385218365062*n+.079286914093745*r,z:0*t+.0451133818589026*n+1.043944368900976*r};return i!==void 0&&(l.alpha=i),l},fn=({x:e,y:t,z:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i=Le({r:e*2.4934969119414263-t*.9313836179191242-.402710784450717*n,g:e*-.8294889695615749+t*1.7626640603183465+.0236246858419436*n,b:e*.0358458302437845-t*.0761723892680418+.9568845240076871*n},"p3");return r!==void 0&&(i.alpha=r),i},Hi={...rt,mode:"p3",parse:["display-p3"],serialize:"display-p3",fromMode:{rgb:e=>fn(Xt(e)),xyz65:fn},toMode:{rgb:e=>Yt(un(e)),xyz65:un}},dn=1.09929682680944,Ii=.018053968510807,mt=e=>{const t=Math.abs(e);return t>Ii?(Math.sign(e)||1)*(dn*Math.pow(t,.45)-(dn-1)):4.5*e},cn=({x:e,y:t,z:n,alpha:r})=>{e===void 0&&(e=0),t===void 0&&(t=0),n===void 0&&(n=0);let i={mode:"rec2020",r:mt(e*1.7166511879712683-t*.3556707837763925-.2533662813736599*n),g:mt(e*-.6666843518324893+t*1.6164812366349395+.0157685458139111*n),b:mt(e*.0176398574453108-t*.0427706132578085+.9421031212354739*n)};return r!==void 0&&(i.alpha=r),i},hn=1.09929682680944,Fi=.018053968510807,bt=(e=0)=>{let t=Math.abs(e);return t<Fi*4.5?e/4.5:(Math.sign(e)||1)*Math.pow((t+hn-1)/hn,1/.45)},pn=e=>{let t=bt(e.r),n=bt(e.g),r=bt(e.b),i={mode:"xyz65",x:.6369580483012911*t+.1446169035862083*n+.1688809751641721*r,y:.262700212011267*t+.6779980715188708*n+.059301716469862*r,z:0*t+.0280726930490874*n+1.0609850577107909*r};return e.alpha!==void 0&&(i.alpha=e.alpha),i},Bi={...rt,mode:"rec2020",fromMode:{xyz65:cn,rgb:e=>cn(Xt(e))},toMode:{xyz65:pn,rgb:e=>Yt(pn(e))},parse:["rec2020"],serialize:"rec2020"},Di=e=>{let{x:t,y:n,z:r,alpha:i}=e;t===void 0&&(t=0),n===void 0&&(n=0),r===void 0&&(r=0);let l={mode:"xyz50",x:1.0479298208405488*t+.0229467933410191*n-.0501922295431356*r,y:.0296278156881593*t+.990434484573249*n-.0170738250293851*r,z:-.0092430581525912*t+.0150551448965779*n+.7518742899580008*r};return i!==void 0&&(l.alpha=i),l},Gi=e=>{let{x:t,y:n,z:r,alpha:i}=e;t===void 0&&(t=0),n===void 0&&(n=0),r===void 0&&(r=0);let l={mode:"xyz65",x:.9554734527042182*t-.0230985368742614*n+.0632593086610217*r,y:-.0283697069632081*t+1.0099954580058226*n+.021041398966943*r,z:.0123140016883199*t-.0205076964334779*n+1.3303659366080753*r};return i!==void 0&&(l.alpha=i),l},Ui={mode:"xyz65",toMode:{rgb:Yt,xyz50:Di},fromMode:{rgb:Xt,xyz50:Gi},ranges:{x:[0,.95],y:[0,1],z:[0,1.088]},channels:["x","y","z","alpha"],parse:["xyz","xyz-d65"],serialize:"xyz-d65",interpolate:{x,y:x,z:x,alpha:{use:x,fixup:ke}}},Vi=(e,t)=>Math.round(e*(t=Math.pow(10,t)))/t,Ki=(e=4)=>t=>typeof t=="number"?Vi(t,e):t;let Xi=Ki(2);const pr=e=>Math.max(0,Math.min(1,e||0)),U=e=>Math.round(pr(e)*255),Wt=H("rgb"),gr=e=>{if(e===void 0)return;let t=U(e.r),n=U(e.g),r=U(e.b);return"#"+(1<<24|t<<16|n<<8|r).toString(16).slice(1)},mr=e=>{if(e===void 0)return;let t=U(e.alpha!==void 0?e.alpha:1);return gr(e)+(256|t).toString(16).slice(1)},Yi=e=>{if(e===void 0)return;let t=U(e.r),n=U(e.g),r=U(e.b);return e.alpha===void 0||e.alpha===1?`rgb(${t}, ${n}, ${r})`:`rgba(${t}, ${n}, ${r}, ${Xi(pr(e.alpha))})`},me=e=>{const t=xe(e);if(!t)return;const n=V(t.mode);if(!n.serialize||typeof n.serialize=="string"){let r=`color(${n.serialize||`--${t.mode}`} `;return n.channels.forEach((i,l)=>{i!=="alpha"&&(r+=(l?" ":"")+(t[i]!==void 0?t[i]:"none"))}),t.alpha!==void 0&&t.alpha<1&&(r+=` / ${t.alpha}`),r+")"}if(typeof n.serialize=="function")return n.serialize(t)},br=e=>gr(Wt(e)),Pt=e=>mr(Wt(e)),it=e=>Yi(Wt(e)),Wi=e=>{const t={mode:e.mode,r:Math.max(0,Math.min(e.r!==void 0?e.r:0,1)),g:Math.max(0,Math.min(e.g!==void 0?e.g:0,1)),b:Math.max(0,Math.min(e.b!==void 0?e.b:0,1))};return e.alpha!==void 0&&(t.alpha=e.alpha),t},Zi=e=>e!==void 0&&(e.r===void 0||e.r>=0&&e.r<=1)&&(e.g===void 0||e.g>=0&&e.g<=1)&&(e.b===void 0||e.b>=0&&e.b<=1);function lt(e="rgb"){const{gamut:t}=V(e);if(!t)return r=>!0;const n=H(typeof t=="string"?t:e);return r=>Zi(n(r))}function Qi(e="rgb"){const{gamut:t}=V(e);if(!t)return l=>xe(l);const n=typeof t=="string"?t:e,r=H(n),i=lt(n);return l=>{const a=xe(l);if(!a)return;const o=r(a);if(i(o))return a;const c=Wi(o);return a.mode===c.mode?c:H(a.mode)(c)}}function ji(e="rgb",t="oklch",n=wi("oklch"),r=.02){const i=H(e),l=V(e);if(!l.gamut)return u=>i(u);const a=lt(e),o=Qi(e),c=H(t),{ranges:d}=V(t);if(!d.l||!d.c)throw new Error("LCH-like space expected");return u=>{if(u=xe(u),u===void 0)return;const f={...c(u)};if(f.l===void 0&&(f.l=0),f.c===void 0&&(f.c=0),f.l>=d.l[1]){const v={...l.white,mode:e};return u.alpha!==void 0&&(v.alpha=u.alpha),v}if(f.l<=d.l[0]){const v={...l.black,mode:e};return u.alpha!==void 0&&(v.alpha=u.alpha),v}if(a(f))return i(f);let g=0,y=f.c,b=(d.c[1]-d.c[0])/4e3,E=o(f);for(;y-g>b;)f.c=(g+y)*.5,E=o(f),a(f)||n&&r>0&&n(f,E)<=r?g=f.c:y=f.c;return i(a(f)?f:E)}}let L=[],O=0;const Oe=4;let Fe=0,K=e=>{let t=[],n={get(){return n.lc||n.listen(()=>{})(),n.value},lc:0,listen(r){return n.lc=t.push(r),()=>{for(let l=O+Oe;l<L.length;)L[l]===r?L.splice(l,Oe):l+=Oe;let i=t.indexOf(r);~i&&(t.splice(i,1),--n.lc||n.off())}},notify(r,i){Fe++;let l=!L.length;for(let a of t)L.push(a,n.value,r,i);if(l){for(O=0;O<L.length;O+=Oe)L[O](L[O+1],L[O+2],L[O+3]);L.length=0}},off(){},set(r){let i=n.value;i!==r&&(n.value=r,n.notify(i))},subscribe(r){let i=n.listen(r);return r(n.value),i},value:e};return n};const Ji=5,Ne=6,Ae=10;let el=(e,t,n,r)=>(e.events=e.events||{},e.events[n+Ae]||(e.events[n+Ae]=r(i=>{e.events[n].reduceRight((l,a)=>(a(l),l),{shared:{},...i})})),e.events[n]=e.events[n]||[],e.events[n].push(t),()=>{let i=e.events[n],l=i.indexOf(t);i.splice(l,1),i.length||(delete e.events[n],e.events[n+Ae](),delete e.events[n+Ae])}),tl=1e3,yr=(e,t)=>el(e,r=>{let i=t(r);i&&e.events[Ne].push(i)},Ji,r=>{let i=e.listen;e.listen=(...a)=>(!e.lc&&!e.active&&(e.active=!0,r()),i(...a));let l=e.off;return e.events[Ne]=[],e.off=()=>{l(),setTimeout(()=>{if(e.active&&!e.lc){e.active=!1;for(let a of e.events[Ne])a();e.events[Ne]=[]}},tl)},()=>{e.listen=i,e.off=l}}),nl=(e,t,n)=>{Array.isArray(e)||(e=[e]);let r,i,l=()=>{if(i===Fe)return;i=Fe;let d=e.map(u=>u.get());if(!r||d.some((u,f)=>u!==r[f])){r=d;let u=t(...d);u&&u.then&&u.t?u.then(f=>{r===d&&a.set(f)}):(a.set(u),i=Fe)}},a=K(void 0),o=a.get;a.get=()=>(l(),o());let c=l;return yr(a,()=>{let d=e.map(u=>u.listen(c));return l(),()=>{for(let u of d)u()}}),a},Se=(e,t)=>nl(e,t),Zt=(e={})=>{let t=K(e);return t.setKey=function(n,r){let i=t.value;typeof r>"u"&&n in t.value?(t.value={...t.value},delete t.value[n],t.notify(i,n)):t.value[n]!==r&&(t.value={...t.value,[n]:r},t.notify(i,n))},t},q=Zt({p3:!1,rec2020:!1});if(typeof window<"u"&&CSS.supports("color","color(display-p3 1 1 1)")){let e=window.matchMedia("(color-gamut:p3)"),t=window.matchMedia("(color-gamut:rec2020)");q.set({p3:e.matches,rec2020:t.matches}),e.addEventListener("change",()=>{q.setKey("p3",e.matches)}),t.addEventListener("change",()=>{q.setKey("rec2020",t.matches)})}R(Bi);let Ke=R(zi),rl=R(Ai);R(Ui);let ae=R(rt),vr=R(ur),il=R(Pi),ll=R(sr),al=R(Oi),Rt=R(Hi);const Y=1e-4;function J(e){let t=ae(e);return t.r>=-Y&&t.r<=1+Y&&t.g>=-Y&&t.g<=1+Y&&t.b>=-Y&&t.b<=1+Y}const Tt=lt("p3"),_t=lt("rec2020");function ne(e,t,n,r=1){return{alpha:r,c:t,h:n,l:e,mode:"oklch"}}function gn(e,t,n,r=1){return q.get().p3?at(ne(e,t,n,r)):Ot($e(ne(e,t,n,r)))}let ol;ol=Ke;let xr=it;function we(e){return e.mode==="oklch"?at(e):it(e)}function sl(e){return me(Rt(e))}q.subscribe(e=>{xr=e.p3?sl:it});function Ct(e){return Jn(e.trim())}function wr(e){return e=e.replace(/\s*;\s*$/,""),/^[\w-]+:\s*(#\w+|\w+\([^)]+\))$/.test(e)&&(e=e.replace(/^[\w-]+:\s*/,"")),/^\s*[\d.]+%?\s+[\d.]+\s+[\d.]+\s*$/.test(e)&&(e=`oklch(${e})`),Ct(e)}function ul(e){return{...ae(e),mode:"p3"}}let $e=ji("rgb","oklch");function Ot(e){let t=Math.round(25500*e.r)/100,n=Math.round(25500*e.g)/100,r=Math.round(25500*e.b)/100;return typeof e.alpha<"u"&&e.alpha<1?`rgba(${t}, ${n}, ${r}, ${e.alpha})`:`rgb(${t}, ${n}, ${r})`}function at(e){let{alpha:t,c:n,h:r,l:i}=e,l="";return typeof t<"u"&&t<1&&(l=` / ${M(100*t)}%`),`oklch(${M(i/1,4)} ${n} ${r}${l})`}function M(e,t=2){return Math.round(parseFloat((e*10**t).toFixed(t)))/10**t}function fl(e){return/^#?([\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})$/i.test(e)}const p={Out:3,P3:1,Rec2020:2,sRGB:0};let ye;ye=ae;function Be(e){let t=ye(e);return J(t)?p.sRGB:Tt(t)?p.P3:_t(t)?p.Rec2020:p.Out}function dl(e,t){return e&&t?n=>{let r=ye(n);return J(r)?p.sRGB:Tt(r)?p.P3:_t(r)?p.Rec2020:p.Out}:e&&!t?n=>{let r=ye(n);return J(r)?p.sRGB:Tt(r)?p.P3:p.Out}:!e&&t?n=>{let r=ye(n);return J(r)?p.sRGB:_t(r)?p.P3:p.Out}:n=>J(n)?p.sRGB:p.Out}const cl=/^[^\x00-\x7F]$/;function Mr(e){return cl.test(e.key)&&/^Key.$/.test(e.code)?e.code.replace(/^Key/,"").toLowerCase():e.key.toLowerCase()}function mn(e,t){let n="";t.metaKey&&(n+="meta+"),t.ctrlKey&&(n+="ctrl+"),t.altKey&&(n+="alt+"),t.shiftKey&&(n+="shift+");let r=n+Mr(t);return e.some(i=>r===i)}function kr(e,t){let n;return(...r)=>{clearTimeout(n),n=setTimeout(()=>{t(...r)},e)}}var D={},he={},bn;function hl(){if(bn)return he;bn=1,Object.defineProperty(he,"__esModule",{value:!0}),he.Plausible=void 0;let e=class{config;constructor(n){this.config=n}trackEvent(n,r){return this.sendEvent(n,r)}sendEvent(n,r){return this.sendRequest(n,{hashMode:!1,url:location.href,referrer:document.referrer||null,deviceWidth:window.innerWidth,...r})}sendRequest=async(n,r)=>{const{apiHost:i,domain:l,filter:a,transform:o}=this.config;if(a&&!a(r,n))return;o&&(r=o(r,n));const c={n,u:r.url,d:l,r:r.referrer,w:r.deviceWidth,h:r.hashMode?1:0,p:r&&r.props?JSON.stringify(r.props):void 0,revenue:r&&r.revenue?JSON.stringify(r.revenue):void 0},d=await fetch(`${i}/api/event`,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify(c),keepalive:!0});if(!d.ok)throw new Error(d.statusText);await d.text()}};return he.Plausible=e,he}var pe={},yn;function pl(){if(yn)return pe;yn=1,Object.defineProperty(pe,"__esModule",{value:!0}),pe.enableAutoPageviews=void 0;const e=t=>{const n=()=>t.sendEvent("pageview"),r=()=>n(),i=history.pushState;return i&&(history.pushState=function(l,a,o){i.apply(this,[l,a,o]),r()},addEventListener("popstate",r)),n(),function(){i&&(history.pushState=i,removeEventListener("popstate",r))}};return pe.enableAutoPageviews=e,pe}var ge={},vn;function gl(){if(vn)return ge;vn=1,Object.defineProperty(ge,"__esModule",{value:!0}),ge.enableAutoOutboundTracking=void 0;const e=t=>{const n=r=>{for(const i of r.composedPath())i instanceof HTMLAnchorElement&&t.sendEvent("Outbound Link: Click",{props:{url:i.href}})};return document.addEventListener("click",n,{capture:!0}),function(){document.removeEventListener("click",n,{capture:!0})}};return ge.enableAutoOutboundTracking=e,ge}var xn;function ml(){return xn||(xn=1,(function(e){var t=D&&D.__createBinding||(Object.create?(function(r,i,l,a){a===void 0&&(a=l);var o=Object.getOwnPropertyDescriptor(i,l);(!o||("get"in o?!i.__esModule:o.writable||o.configurable))&&(o={enumerable:!0,get:function(){return i[l]}}),Object.defineProperty(r,a,o)}):(function(r,i,l,a){a===void 0&&(a=l),r[a]=i[l]})),n=D&&D.__exportStar||function(r,i){for(var l in r)l!=="default"&&!Object.prototype.hasOwnProperty.call(i,l)&&t(i,r,l)};Object.defineProperty(e,"__esModule",{value:!0}),n(hl(),e),n(pl(),e),n(gl(),e)})(D)),D}var bl=ml();let F;{let e=new bl.Plausible({apiHost:"https://plausible.io",domain:"oklch.com"});F=(...t)=>{e.trackEvent(...t).catch(n=>{throw n})},F("pageview")}let w=K("main"),Pe=Se(w,e=>e==="bench");function Er(){/[?&]bench(=|&|$|&)/.test(location.search)?w.set("bench"):/[?&]3d(=|&|$|&)/.test(location.search)?w.set("3d"):w.set("main")}window.addEventListener("popstate",Er);Er();document.body.addEventListener("keyup",e=>{if(e.target===document.body){let t=w.get();e.key==="b"?t!=="3d"&&w.set(t==="bench"?"main":"bench"):e.key==="Escape"&&t==="3d"&&w.set("main")}});w.listen(e=>{history.pushState(null,"",location.pathname+(e==="main"?"":`?${e}`)+location.hash)});w.subscribe(e=>{e==="3d"&&F("Start 3D fullscreen")});let k=Zt({freezeMax:0,freezeSum:0,paint:0,workerMax:0,workerSum:0}),Lr=0;function yl(){Pe.get()&&(k.set({freezeMax:0,freezeSum:0,paint:0,workerMax:0,workerSum:0}),Lr=Date.now())}function vl(e){Pe.get()&&(k.setKey("paint",Date.now()-Lr),k.setKey("workerSum",k.get().workerSum+e),e>k.get().workerMax&&k.setKey("workerMax",e))}function Nt(e){if(Pe.get()){let t=Date.now();e();let n=Date.now()-t;k.setKey("freezeSum",k.get().freezeSum+n),n>k.get().freezeMax&&k.setKey("freezeMax",n)}else e()}const wn=150,yt=40,xl=30,wl=1e3;function Ml(){let{freezeSum:e,paint:t}=k.get(),n=Math.max(e/xl,t/wl),r=wn-(wn-yt)*n;return r<yt&&(r=yt),br({c:.11,h:r,l:.57,mode:"oklch"})}let Mn=e=>e,Q={},At={addEventListener(){},removeEventListener(){}};function kl(){try{return typeof localStorage<"u"}catch{return!1}}kl()&&(Q=localStorage);let El={addEventListener(e,t,n){window.addEventListener("storage",t),window.addEventListener("pageshow",n)},removeEventListener(e,t,n){window.removeEventListener("storage",t),window.removeEventListener("pageshow",n)}};typeof window<"u"&&(At=El);function Re(e,t=void 0,n={}){let r=n.encode||Mn,i=n.decode||Mn,l=K(t),a=l.set;l.set=d=>{let u=r(d);typeof u>"u"?delete Q[e]:Q[e]=u,a(d)};function o(d){d.key===e?d.newValue===null?a(t):a(i(d.newValue)):Q[e]||a(t)}function c(){l.set(Q[e]?i(Q[e]):t)}return yr(l,()=>{if(c(),n.listen!==!1)return At.addEventListener(e,o,c),()=>{At.removeEventListener(e,o,c)}}),l}let ot={decode(e){return e==="show"},encode(e){return e?"show":"hide"}},z=Re("settings:charts",!0,ot),se=Re("settings:p3",!0,ot),T=Re("settings:rec2020",!1,ot),ue=Re("settings:3d",!1,ot),Ia=Se([se,T],(e,t)=>t?"rec2020":e?"p3":"rgb"),_=Re("settings:output","hex/rgba");function Sr(e){e&&(F("Enable 3D"),Ll())}let Ll=ue.listen(Sr);Sr(ue.get());_.listen(e=>{e!=="hex/rgba"&&F(`Change format to ${e}`)});function Sl(){return{a:100,c:.1,h:Math.round(360*Math.random()),l:.7}}function $r(){let e=location.hash.slice(1).split(",");if(e.length===4&&e.every(t=>/^\d+(\.\d+)?$/.test(t))){let t=parseFloat(e[0]);return t>1&&(t/=100),{a:parseFloat(e[3]),c:parseFloat(e[1]),h:parseFloat(e[2]),l:t}}}let m=Zt($r()||Sl()),qt=[],X=[];function B(e,t){yl(),Nt(()=>{let n=0,r=m.get(),i=t.l!==r.l,l=t.c!==r.c,a=t.h!==r.h;i&&l&&a?n=3:i&&l||l&&a||a&&i?n=2:n=1;for(let o of e)o.l&&i&&o.l(r.l,n),o.c&&l&&o.c(r.c,n),o.h&&a&&o.h(r.h,n),o.alpha&&t.a!==r.a&&o.alpha(r.a,0),o.lc&&(i||l)&&o.lc(r),o.ch&&(l||a)&&o.ch(r),o.lh&&(i||a)&&o.lh(r),o.lch&&(i||l||a)&&o.lch(r)})}function Qt(e){qt.push(e)}let vt={};setTimeout(()=>{B(qt,{}),vt=m.get(),m.listen(e=>{B(qt,vt),vt=e})},1);function jt(e){Qt(e),X.push(e)}function xt(e){return parseFloat(e.toFixed(2))}function Xe(e){return parseFloat(e.toFixed(4))}function kn(e){return parseFloat(e.toFixed(6))}function Jt(e,t){let n={...e};return typeof n.l<"u"&&(n.l=Xe(n.l)),typeof n.c<"u"&&(n.c=t==="oklch"?Xe(n.c):xt(n.c)),typeof n.h<"u"&&(n.h=xt(n.h)),typeof n.a<"u"&&(n.a=xt(n.a)),n}function $l(e,t){let n={...e};return typeof n.l<"u"&&(n.l=kn(n.l)),typeof n.c<"u"&&(n.c=kn(n.c)),typeof n.h<"u"&&(n.h=Xe(n.h)),typeof n.a<"u"&&(n.a=Xe(n.a)),n}function Pl(e,t=!1){let n=wr(e);if(n){if(_.get()==="figmaP3"&&t&&(n=ul(n)),n.mode==="oklch")m.set(ee(n));else{let r=function(o){let c=C(o);return i!==Be(c)?!1:Pt(c)===Pt(n)};if(n.mode==="rgb"&&n.r===1&&n.g===1&&n.b===1)return m.set({a:(n.alpha??1)*100,c:0,h:0,l:1}),!0;let i=Be(n),l=Ke(n);if(i===p.sRGB&&Be(l)!==p.sRGB){let o=$e(l);l=Ke(o)}let a=Jt(ee(l),"oklch");if(r(a))m.set(a);else{let o=$l(ee(l));r(o)?m.set(o):m.set(ee(l))}}return!0}else return!1}function C(e){return ne(e.l*1,e.c,e.h,e.a/100)}function ee(e){return{a:(e.alpha??1)*100,c:e.c,h:e.h??0,l:e.l/1}}function Rl(e){let t=C(e),n=ee(vr(t));return n.l/=100,Jt(n,"lch")}function wt(e){let t=m.get(),n=Jt(e,"oklch");m.set({a:t.a,c:typeof n.c>"u"?t.c:n.c,h:typeof n.h>"u"?t.h:n.h,l:typeof n.l>"u"?t.l:n.l})}Pe.listen(e=>{e&&B(X,{})});q.listen(()=>{B(X,{})});T.listen(()=>{B(X,{})});se.listen(()=>{B(X,{})});z.listen(e=>{e&&setTimeout(()=>{B(X,{})},400)});m.subscribe(kr(100,()=>{let{a:e,c:t,h:n,l:r}=m.get(),i=`#${r},${t},${n},${e}`;location.hash!==i&&history.pushState(null,"",`#${r},${t},${n},${e}`)}));window.addEventListener("hashchange",()=>{let e=$r();e&&m.set(e)});let Tl=window.matchMedia("(prefers-color-scheme: dark)");Tl.addEventListener("change",()=>{B(X,{})});let _l=Se(m,e=>{let{h:t}=e;return{main:gn(.57,.18,t),surface:gn(.7,.17,t,.2)}}),oe=K([]),Me=K([]),Ye=!1;m.subscribe(kr(100,e=>{if(Ye){Ye=!1;return}oe.set([...oe.get(),e]),Me.set([])}));function Cl(){let e=oe.get();if(e.length<2)return;let t=e[e.length-2],n=e[e.length-1];Me.set([...Me.get(),n]),oe.set(e.slice(0,-1)),Ye=!0,m.set(t)}function Ol(){let e=Me.get();if(e.length<1)return;let t=e[e.length-1];oe.set([...oe.get(),t]),Me.set(e.slice(0,-1)),Ye=!0,m.set(t)}let en=K(!0);window.addEventListener("load",()=>{setTimeout(()=>{en.set(!1)},10)});const Nl="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='128'%20height='128'%3e%3ccircle%20fill='%23000'%20cx='64'%20cy='64'%20r='64'/%3e%3cpath%20fill='%23fff'%20d='m16%2064%2048-48%2048%2048-48%2048zm16%200%2032%2032%2032-32-32-32z'/%3e%3c/svg%3e",Pr=/Mac|iPod|iPhone|iPad/.test(window.navigator.platform),Al=Pr?["meta+shift+z"]:["ctrl+shift+z","ctrl+y"],ql=Pr?["meta+z"]:["ctrl+z"];_l.subscribe(({main:e,surface:t})=>{document.body.style.setProperty("--accent",e),document.body.style.setProperty("--surface-ui-accent",t)});en.subscribe(e=>{document.body.classList.toggle("is-loading",e)});document.body.addEventListener("mousedown",()=>{document.body.classList.add("is-grabbing")});document.body.addEventListener("mouseup",()=>{document.body.classList.remove("is-grabbing")});document.body.addEventListener("keydown",e=>{mn(Al,e)?(e.preventDefault(),Ol()):mn(ql,e)&&(e.preventDefault(),Cl())});{let e=document.querySelector('link[rel="icon"][type="image/svg+xml"]');m.subscribe(t=>{let n=Nl.replace("%23000",at(C(t)));t.l>.9&&(n=n.replace("%23fff","%23000")),e?.setAttribute("href",n)})}let j=document.querySelector(".benchmark");function Te(e){return j.querySelector(`.benchmark_value.is-${e}`)}let zl=Te("freeze-max"),Hl=Te("freeze-sum"),Il=Te("worker-max"),Fl=Te("worker-sum"),Bl=Te("paint"),qe;Pe.subscribe(e=>{e?(j.classList.add("is-enabled"),j.setAttribute("aria-hidden","false"),qe=k.subscribe(t=>{j.style.setProperty("--benchmark-color",Ml()),zl.innerText=`${t.freezeMax}`,Hl.innerText=`${t.freezeSum}`,Il.innerText=`${t.workerMax}`,Fl.innerText=`${t.workerSum}`,Bl.innerText=`${t.paint}`})):(j.classList.remove("is-enabled"),j.setAttribute("aria-hidden","true"),qe&&(qe(),qe=void 0))});const En=2,Ln=1,zt={"-":Ln,"*":En,"/":En,"+":Ln},Sn={"-":(e,t)=>t-e,"*":(e,t)=>e*t,"/":(e,t)=>t/e,"+":(e,t)=>e+t},$n=/[*+-/]/;function ve(e){if(typeof e=="number")return e;let t=parseFloat(e);return isNaN(t)?0:t}function Dl(e,t){return zt[e]<=zt[t]}function Gl(e){let t=[],n=[];for(let r=0;r<e.length;r++){let i=e.charAt(r);if(i in zt){if(t.length===0){t.push(i);continue}let l=t[t.length-1],a=i;for(;t.length>0&&Dl(l,a);)n.push(t.pop());t.push(i)}else{let l=/^[\d.]+$/.test(e.charAt(r-1));if(r>0&&l){let a=n.length-1;n[a]=n[a].concat(i)}else n.push(i)}}for(;t.length>0;)n.push(t.pop());return n}function Pn(e){let t=e.charAt(0);if(!$n.test(e)||$n.test(t))return ve(e);let n=Gl(e),r=[];for(let l of n)if(l in Sn){let a=Sn[l];r.push(a(r.pop(),r.pop()))}else r.push(ve(l));return r.pop()??0}function Ul(e,t){if(e>0&&e<=t)return e;let n=e%t;return n>0?n:t-Math.abs(n)}function Rn(e){return{max:ve(e.getAttribute("aria-valuemax")),min:ve(e.getAttribute("aria-valuemin")),step:ve(e.getAttribute("step"))}}function Vl(e,t){return(n,r)=>{let i=e?Ul(n,r.max):n,l=Math.max(r.min,Math.min(r.max,i));return M(l,t)}}function st(e){let n=document.querySelector(`.card.is-${e}`).querySelector("[role=spinbutton]"),r=Vl(e==="h",e==="h"?2:4);return n.addEventListener("change",()=>{let{max:i,min:l}=Rn(n),a=Pn(n.value),o=r(a,{max:i,min:l});m.setKey(e,o),n.setAttribute("aria-valuenow",String(o))}),n.addEventListener("spin",i=>{let{max:l,min:a,step:o}=Rn(n),c=Pn(n.value);i.detail?.action==="increase"?c=c+o*i.detail.speed:i.detail?.action==="decrease"&&(c=c-o*i.detail.speed);let d=r(c,{max:l,min:a});m.setKey(e,d),n.setAttribute("aria-valuenow",String(d))}),n}let Kl=st("l"),Rr=st("c"),Xl=st("h"),Yl=st("a");Qt({alpha(e){Yl.value=String(e)},c(e){Rr.value=String(e)},h(e){Xl.value=String(e)},l(e){Kl.value=String(e)}});z.subscribe(e=>{document.body.classList.toggle("is-chart-hidden",!e)});T.subscribe(e=>{Rr.setAttribute("aria-valuemax",String(e?.47:.37))});function Tr(e){let t=e.getContext("2d",{colorSpace:q.get().p3?"display-p3":"srgb"});return t.clearRect(0,0,e.width,e.height),t}function re(e){let t=Math.ceil(window.devicePixelRatio),n=e.getBoundingClientRect(),r=n.width*t,i=n.height*t;return e.width=r,e.height=i,[r,i]}function N(e,t){e.classList.toggle("is-hidden",!t),e.setAttribute("aria-hidden",t?"false":"true"),t?e.removeAttribute("inert"):e.setAttribute("inert","")}function _r(){let e=window.getComputedStyle(document.body);return[e.getPropertyValue("--border-p3")||"#fff",e.getPropertyValue("--border-rec2020")||"#fff"]}const Tn=navigator.hardwareConcurrency;function Wl(e){return e.values().next().value}function Zl(e){let t=new Array(Tn);for(let a=0;a<t.length;a++)t[a]=new e;let n=new Set,r=new Map;function i(a){if(!a)return;let o=a[0];r.delete(o),l(o,1,a[2],a[3],a[4])}let l=(a,o,c,d,u)=>{if(n.has(a)){r.set(a,[a,o,c,d,u]);return}let f=Math.floor(Tn/o);if(t.length/f>o&&(f+=1),f>t.length&&(f=t.length),f===0){r.set(a,[a,o,c,d,u]);return}n.add(a);let g=0,y=t.splice(0,f),b=c(Array(y.length).fill(void 0));for(let[E,v]of y.entries())v.onmessage=de=>{d(de.data),t.push(v),g+=1,g===f&&(n.delete(a),i(r.get(a)??Wl(r)),u())},v.postMessage(b[E])};return l}function Ql(e){return new Worker("/worker-D_ZIe9Qw.js",{name:e?.name})}let jl=document.querySelector(".chart.is-l"),Jl=document.querySelector(".chart.is-c"),ea=document.querySelector(".chart.is-h"),Ht=jl.querySelector(".chart_canvas"),It=Jl.querySelector(".chart_canvas"),Ft=ea.querySelector(".chart_canvas");function Bt(){return T.get()?.47:.37}function _n(e,t,n){return Math.min(Math.max(t,e),n)}jt({c(e){document.body.style.setProperty("--chart-c",`${100*e/Bt()}%`)},h(e){document.body.style.setProperty("--chart-h",`${100*e/360}%`)},l(e){document.body.style.setProperty("--chart-l",`${100*e/1}%`)}});function Cn(e,t,n){let r=e.getBoundingClientRect(),i=_n(t-r.left,0,r.width),l=_n(r.height-(n-r.top),0,r.height);e.parentElement.classList.contains("is-l")?wt({c:Bt()*l/r.height,h:360*i/r.width}):e.parentElement.classList.contains("is-c")?wt({h:360*i/r.width,l:1*l/r.height}):e.parentElement.classList.contains("is-h")&&wt({c:Bt()*l/r.height,l:1*i/r.width})}function tn(e){function t(r){r.preventDefault(),Cn(e,r.clientX,r.clientY)}function n(r){document.removeEventListener("mousemove",t),document.removeEventListener("mouseup",n),Cn(e,r.clientX,r.clientY)}e.addEventListener("mousedown",()=>{document.addEventListener("mouseup",n),document.addEventListener("mousemove",t)})}tn(Ht);tn(It);tn(Ft);let ta=Zl(Ql);function Mt(e,t,n,r){let[i,l]=_r(),a=ae(Ct(i)),o=ae(Ct(l)),c=[];ta(t,r,d=>d.map((u,f)=>{let g=Math.floor(e.width/d.length),y=g*f+(f===0?0:1),b=Math.min(g*(f+1),e.width);return f===d.length-1&&(b=e.width),{borderP3:a,borderRec2020:o,from:y,height:e.height,showP3:se.get(),showRec2020:T.get(),to:b,type:t,value:n,width:e.width}}),d=>{Nt(()=>{c.push([new ImageData(new Uint8ClampedArray(d.pixels),d.width,e.height),d.from])}),vl(d.time)},()=>{Nt(()=>{let d=Tr(e);for(let[u,f]of c)d.putImageData(u,f,0)})})}function On(){re(Ht),re(It),re(Ft),jt({c(e,t){z.get()&&Mt(It,"c",e,t)},h(e,t){z.get()&&Mt(Ft,"h",e,t)},l(e,t){z.get()&&Mt(Ht,"l",e,t)}})}if(z.get())On();else{let e=z.listen(t=>{t&&(e(),On())})}function ut(e){return document.querySelector(`[type=checkbox][name=${e}]`)}function na(e,t){e.addEventListener("change",()=>{setTimeout(()=>{t(e.checked)},0)})}function ra(e){let{a:t,alpha:n,b:r,l:i}=e,l="";return typeof n<"u"&&n<1&&(l=` / ${M(n)}`),`oklab(${M(i)} ${M(t)} ${M(r)}${l})`}function ia(e){let{alpha:t,b:n,g:r,r:i}=e,l=t??1;return`vec(${M(i,5)}, ${M(r,5)}, ${M(n,5)}, ${M(l,5)})`}function la(e){let{alpha:t,c:n,h:r,l:i}=e,l=`${M(i)}, ${M(n)}, ${M(r??0)}`;return typeof t<"u"&&t<1?`${l}, ${M(t)}`:l}function ze(e,t){let n={};for(let r in e){let i=e[r];typeof i=="number"&&r!=="alpha"?n[r]=M(i,t):n[r]=e[r]}return n}const aa=new Set(["hex","hex/rgba","hsl","rgb"]),nn=Se(m,e=>{let t=C(e),n=J(t)?t:$e(t),r=br(n),i=it(n),l=typeof t.alpha<"u"&&t.alpha<1;return{figmaP3:"Figma P3 "+mr(Rt(t)),hex:l?Pt(n):r,"hex/rgba":l?i:r,hsl:me(ze(il(n))),lab:me(ze(ll(t))),lch:me(ze(vr(t))),lrgb:"Linear RGB "+ia(al(t)),numbers:la(t),oklab:ra(rl(t)),p3:me(ze(Rt(t),4)),rgb:i}}),oa=Object.keys(nn.get());function sa(e){return oa.includes(e)}let fe=Se([m,q],(e,{p3:t,rec2020:n})=>{let r=C(e),i=Be(r);if(i===p.sRGB){let l=Ot(ae(r));return{color:r,fallback:l,real:l,space:"srgb"}}else{let l=$e(r),a=Ot(l);return i===p.P3?{color:t?r:l,fallback:a,real:t?we(r):!1,space:"p3"}:i===p.Rec2020?{color:n?r:l,fallback:a,real:n?we(r):!1,space:"rec2020"}:{color:l,fallback:a,real:!1,space:"out"}}}),Cr=document.querySelectorAll(".field"),Dt=document.querySelector("meta[name=viewport]");function We(e){e.removeAttribute("aria-invalid"),e.setCustomValidity("")}function Gt(e,t){e.setAttribute("aria-invalid","true"),e.setCustomValidity(t)}let Nn=Dt.content;if(/iPhone/.test(navigator.userAgent)){let e=function(){Dt.content=Nn+",maximum-scale=1,user-scalable=0"},t=function(){Dt.content=Nn};for(let n of Cr){let r=n.querySelector("input");r.addEventListener("mouseover",e),r.addEventListener("blur",t)}}function An(e,t){e.classList.toggle("is-warning",t)}function ua(e){e.target.removeEventListener("mouseup",Ze)}function Ze(e){e.preventDefault(),e.target.removeEventListener("mouseup",Ze)}function fa(e){let t=e.target;t.select(),t.addEventListener("mouseup",Ze),setTimeout(()=>{t.addEventListener("mouseup",Ze)},500)}function Or(e){return e.ctrlKey||e.altKey||e.metaKey}let Nr={};for(let e of Cr){let t=e.querySelector("input");t.addEventListener("focus",fa),t.getAttribute("role")==="spinbutton"&&ha(t);let n=e.querySelector("kbd").innerText.trim().toLowerCase();Nr[n]=t}function da(e){return!!e&&e.tagName==="INPUT"}function Ar(e){let t=Mr(e);return Nr[t]}window.addEventListener("keyup",e=>{Or(e)||(e.target===document.body?Ar(e)?.focus():da(e.target)&&e.key==="Escape"&&e.target.blur())});function ca(e,t){return e.slice(0,t)+e.slice(t+1)}let qn=()=>{},kt;function ha(e){let t=e.nextElementSibling,n=t.nextElementSibling,r=new RegExp(e.getAttribute("pattern"));function i(u,f){/[0-9]/.test(e.value.charAt(e.value.length-1))?(We(e),e.dispatchEvent(new CustomEvent("spin",{detail:{action:u,speed:f?.1:1}}))):Gt(e,"Invalid number")}function l(u){if(u.button!==0)return;u.preventDefault(),document.activeElement!==e&&e.focus();let f=u.target,g=f===t;window.addEventListener("mouseup",c),f.addEventListener("mouseleave",c),qn=()=>{i(g?"increase":"decrease",u.shiftKey)},a(400)}function a(u){clearTimeout(kt),qn(),kt=setTimeout(()=>{a(50)},u)}function o(u){if(Or(u))return;let f=Ar(u);f&&(u.preventDefault(),f.focus()),u.key==="ArrowUp"?(u.preventDefault(),i("increase",u.shiftKey)):u.key==="ArrowDown"&&(u.preventDefault(),i("decrease",u.shiftKey))}function c(){clearTimeout(kt),window.removeEventListener("mouseup",c),t.removeEventListener("mouseleave",c),n.removeEventListener("mouseleave",c)}function d(u){if(ua(u),u instanceof InputEvent){let f=e.value,g=e.selectionStart;r.test(f)?We(e):(e.value=ca(f,g-1),Gt(e,"Invalid number"))}e.setAttribute("aria-valuenow",e.value)}t.addEventListener("mousedown",l),n.addEventListener("mousedown",l),e.addEventListener("keydown",o),e.addEventListener("input",d),e.addEventListener("blur",c)}let pa=document.querySelector(".code.is-lch"),ie=pa.querySelector("input"),ga=document.querySelector(".code.is-rgb"),S=ga.querySelector("input"),zn=document.querySelector(".code_note.is-paste"),Hn=document.querySelector(".code_note.is-figma"),In=document.querySelector(".code_note.is-fallback"),Qe=document.querySelector(".code select"),je=new Map,Je=new Map;function qr(){let e=m.get(),t=at(C(e));je.set(ie,t),ie.value=t,We(ie)}function rn(){let{space:e}=fe.get(),t=_.get(),n=nn.get()[t];if(je.set(S,n),S.value=n.replace(/^(Figma P3|Linear RGB) /,""),t==="figmaP3")An(S,!0),N(Hn,!0),N(zn,!1),N(In,!1);else{An(S,!1),N(Hn,!1);let r=e!=="srgb"&&aa.has(t);N(zn,!r),N(In,r)}We(S)}m.subscribe(()=>{Je.get(ie)||qr()});fe.subscribe(()=>{Je.get(S)||rn()});function zr(e){function t(){let n=e.value.trim();n!==je.get(e)&&(je.set(e,n),Pl(n,e===S)||Gt(e,"Use valid CSS color format"))}e.addEventListener("change",t),e.addEventListener("keyup",n=>{n.key==="Enter"?e.blur():t()}),e.addEventListener("focus",()=>{Je.set(e,!0)}),e.addEventListener("blur",()=>{if(Je.set(e,!1),e===ie)qr();else{if(_.get()!=="figmaP3"){let n=e.value.trim();if(fl(n))_.set("hex/rgba");else{let r=wr(n);r&&sa(r.mode)&&_.set(r.mode)}}rn()}})}zr(ie);zr(S);_.subscribe(e=>{Qe.value=e,e==="numbers"?S.ariaLabel=`OKLCH ${e}`:e==="lrgb"?S.ariaLabel="Linear RGB":S.ariaLabel=`${e} CSS code`});_.listen(()=>{rn()});Qe.addEventListener("change",()=>{_.set(Qe.value)});nn.subscribe(e=>{for(let t in e){let n=t;if(n!=="hex/rgba"){let r=Qe.querySelector(`[value=${n}]`);r.text=e[n]}}});const ma="modulepreload",ba=function(e){return"/"+e},Fn={},Hr=function(t,n,r){let i=Promise.resolve();if(n&&n.length>0){let c=function(d){return Promise.all(d.map(u=>Promise.resolve(u).then(f=>({status:"fulfilled",value:f}),f=>({status:"rejected",reason:f}))))};document.getElementsByTagName("link");const a=document.querySelector("meta[property=csp-nonce]"),o=a?.nonce||a?.getAttribute("nonce");i=c(n.map(d=>{if(d=ba(d),d in Fn)return;Fn[d]=!0;const u=d.endsWith(".css"),f=u?'[rel="stylesheet"]':"";if(document.querySelector(`link[href="${d}"]${f}`))return;const g=document.createElement("link");if(g.rel=u?"stylesheet":ma,u||(g.as="script"),g.crossOrigin="",g.href=d,o&&g.setAttribute("nonce",o),document.head.appendChild(g),u)return new Promise((y,b)=>{g.addEventListener("load",y),g.addEventListener("error",()=>b(new Error(`Unable to preload CSS for ${d}`)))})}))}function l(a){const o=new Event("vite:preloadError",{cancelable:!0});if(o.payload=a,window.dispatchEvent(o),!o.defaultPrevented)throw a}return i.then(a=>{for(const o of a||[])o.status==="rejected"&&l(o.reason);return t().catch(l)})};let Ut=new Map,Vt;function Ir(e,t){let n=e.position.distanceTo(t.clone().set(0,0,0));e.position.copy(t),e.position.normalize().multiplyScalar(n)}function Fr(e,t){Ut.set(t,e),Vt&&Ir(e,Vt.position)}function Br(e){let t=Ut.get(e);if(t){Vt=t;let n=t.position;for(let[r,i]of Ut.entries())r!==e&&Ir(i,n)}}let ya=(e,t)=>new Promise(n=>{setTimeout(n,e,t)});function Dr(e,t,n=0){let r=!1,i=!1;return async l=>{if(!(r||i)){r=!0,e.innerText="Loading…";try{let a=await t();i=!0,n>0&&!en.get()&&await ya(n),e.innerText="Loading",e.style.display="none",l(a)}catch{r=!1,e.innerText="Network error"}}}}function Gr(e){return document.querySelector(`.button.is-${e}`)}let va=document.querySelector(".fullmodel"),xa=document.querySelector(".fullmodel_status"),wa=document.querySelector(".fullmodel_canvas"),Ma=Dr(xa,()=>Hr(()=>import("./model-Dsxds9BJ.js"),[]));Gr("close3d")?.addEventListener("click",()=>{w.set("main")});let W;w.subscribe(e=>{N(va,e==="3d"),e==="3d"?W?W.start():Ma(({initCanvas:t})=>{W=t(wa,!0),Fr(W.camera,"full")}):W?.started&&(Br("full"),W.stop())});let ka=document.querySelector(".layout"),Ea=document.querySelector(".layout_3d");ue.subscribe(e=>{Ea.classList.toggle("is-shown",e)});w.subscribe(e=>{N(ka,e!=="3d")});const La=100;let $=document.querySelector(".main"),ln=$.querySelector(".main_expand"),Sa=$.querySelectorAll("a"),Ur=window.matchMedia("(max-width:830px)"),an=0,G=ln.ariaExpanded==="true";function on(e=!1){e!==G&&(G=e,ln.ariaExpanded=String(G),document.body.classList.toggle("is-main-collapsed",!G))}function Bn(e){an=e.touches[0].clientY}function Dn(e){e.preventDefault();let n=e.changedTouches[0].clientY-an,r=G&&n>0,i=!G&&n<0;(r||i)&&$.style.setProperty("--touch-diff",`${n}px`)}function Gn(e){let t=e.changedTouches[0].clientY,n=an-t;$.style.removeProperty("--touch-diff"),Math.abs(n)>La&&on(n>0)}function Un(){on(!1)}function Vr(){Ur.matches?(window.addEventListener("scroll",Un,{once:!0}),$.addEventListener("touchstart",Bn),$.addEventListener("touchmove",Dn),$.addEventListener("touchend",Gn)):(window.removeEventListener("scroll",Un),$.removeEventListener("touchstart",Bn),$.removeEventListener("touchmove",Dn),$.removeEventListener("touchend",Gn))}Vr();Ur.addEventListener("change",Vr);ln.addEventListener("click",()=>{on(!G)});for(let e of Sa){let t="Open Evil Martians";e.href.includes("sitnik")&&(t="Open Sitnik page"),e.href.includes("romanshamin")&&(t="Open Shamin page"),e.addEventListener("click",()=>{F(t)})}let $a=document.querySelector(".minimodel_status"),Pa=document.querySelector(".minimodel_canvas");Gr("3d")?.addEventListener("click",()=>{w.set("3d")});let Ra=Dr($a,()=>Hr(()=>import("./model-Dsxds9BJ.js"),[]),w.get()==="3d"?0:400),Z;function Kr(){ue.get()&&w.get()!=="3d"?Z?Z.start():Ra(({initCanvas:e})=>{Z=e(Pa),Fr(Z.camera,"mini")}):Z?.started&&Z.stop()}ue.subscribe(Kr);w.subscribe(Kr);w.listen(e=>{e==="3d"&&Br("mini")});let Xr=document.querySelector(".mode a:not(.is-current)"),Ta=Xr.href;m.subscribe(e=>{let{a:t,c:n,h:r,l:i}=Rl(e);Xr.href=`${Ta}#${i},${n},${r},${t}`});function ft(e){let t=document.querySelector(`.range.is-${e}`),n=t.querySelector(".range_input");return n.addEventListener("input",()=>{m.setKey(e,parseFloat(n.value))}),[t,n]}let[et,Yr]=ft("l"),[tt,sn]=ft("c"),[nt,Wr]=ft("h"),[Vn,_a]=ft("a"),Kn=et.querySelector(".range_space"),Xn=tt.querySelector(".range_space"),Yn=nt.querySelector(".range_space"),Ca=et.querySelector("datalist"),Oa=tt.querySelector("datalist"),Na=nt.querySelector("datalist");function Et(e,t,n,r,i,l){let a=Tr(e),o=Math.floor(r/2),[c,d]=_r(),u=dl(se.get(),T.get()),f=[];function g(b,E){let de=l(b)[t]??0;f.push(E(de/i)*i)}let y=u(l(0));for(let b=0;b<=n;b++){let E=l(b),v=u(E);if(v!==p.Out){if(a.fillStyle=xr(E),v===p.sRGB)a.fillRect(b,0,1,r);else{a.fillRect(b,0,1,o);let de=$e(E);a.fillStyle=we(de),a.fillRect(b,o,1,o+1)}y!==v&&(y===p.Out||y===p.Rec2020&&v===p.P3||y===p.P3&&v===p.sRGB?g(b,Math.ceil):g(b-1,Math.floor),v===p.P3&&y!==p.Rec2020?(a.fillStyle=c,a.fillRect(b,0,1,r)):v===p.sRGB&&y===p.P3?(a.fillStyle=c,a.fillRect(b-1,0,1,r)):v===p.Rec2020?(a.fillStyle=d,a.fillRect(b,0,1,r)):y===p.Rec2020&&(a.fillStyle=d,a.fillRect(b-1,0,1,r)))}else if(y!==p.Out&&g(b-1,Math.floor),t==="c")return f;y=v}return f}function Lt(e,t){e.replaceChildren(...t.map(n=>{let r=document.createElement("option");return r.value=String(n).replace(/(0{5,}\d|9{5,}\d)/,"").replace(/\.$/,""),r}))}Qt({alpha(e){_a.value=String(e)},c(e){sn.value=String(e)},h(e){Wr.value=String(e)},l(e){Yr.value=String(e)}});jt({ch(e){let t=C(e),n=t.c,r=t.h??0,[i,l]=re(Kn),a=1/i;Lt(Ca,Et(Kn,"l",i,l,parseFloat(Yr.step),o=>ne(o*a,n,r)))},lc(e){let{c:t,l:n}=C(e),[r,i]=re(Yn),l=360/r;Lt(Na,Et(Yn,"h",r,i,parseFloat(Wr.step),a=>ne(n,t,a*l)))},lh(e){let t=C(e),n=t.l,r=t.h??0,[i,l]=re(Xn),a=(T.get()?.47:.37)/i;Lt(Oa,Et(Xn,"c",i,l,parseFloat(sn.step),o=>ne(n,o*a,r)))}});function Zr(){let{fallback:e,real:t,space:n}=fe.get(),r=!1;(n==="srgb"||n==="p3"&&se.get()||n==="rec2020"&&T.get())&&(r=!0),document.body.style.setProperty("--range-color",t||e),r?(et.classList.remove("is-invisible"),tt.classList.remove("is-invisible"),nt.classList.remove("is-invisible")):(et.classList.add("is-invisible"),tt.classList.add("is-invisible"),nt.classList.add("is-invisible"))}fe.subscribe(({color:e})=>{Zr(),Vn.style.setProperty("--range-a-from",we({...e,alpha:0})),Vn.style.setProperty("--range-a-to",we({...e,alpha:1}))});T.subscribe(e=>{Zr(),sn.max=String(e?.47:.37)});let He=document.querySelector(".sample"),Aa=document.querySelector(".sample_reader"),Ie=document.querySelector(".sample_unavailable"),qa=document.querySelector(".sample_fallback .sample_note");fe.subscribe(({fallback:e,real:t,space:n})=>{He.classList.toggle("is-srgb",n==="srgb"),He.classList.toggle("is-supported",!!t),t?Ie.innerText="":n==="p3"?Ie.innerText="P3 is unavailable on this monitor":n==="rec2020"?Ie.innerText="Rec2020 is unavailable on this monitor":n==="out"&&(Ie.innerText="Unavailable on any device"),Aa.innerText=`${n} space`,He.style.setProperty("--sample-real",t||"transparent"),He.style.setProperty("--sample-fallback",e)});qa.addEventListener("click",()=>{let e=fe.get().fallback,t=Ke(e);m.set(ee(t))});function dt(e,t){e.subscribe(n=>{t.checked=n}),na(t,n=>{e.set(n)})}dt(z,ut("charts"));dt(se,ut("p3"));dt(T,ut("rec2020"));dt(ue,ut("mode3d"));let za=document.querySelectorAll(".link");for(let e of za)e.classList.contains("is-help")?e.addEventListener("click",()=>{F("Open guide")}):e.classList.contains("is-github")&&e.addEventListener("click",()=>{F("Open sources")});export{ne as a,Ia as b,m as c,ae as r,ol as t};
+"use strict";
+(() => {
+  // node_modules/culori/src/rgb/parseNumber.js
+  var parseNumber = (color, len) => {
+    if (typeof color !== "number") return;
+    if (len === 3) {
+      return {
+        mode: "rgb",
+        r: (color >> 8 & 15 | color >> 4 & 240) / 255,
+        g: (color >> 4 & 15 | color & 240) / 255,
+        b: (color & 15 | color << 4 & 240) / 255
+      };
+    }
+    if (len === 4) {
+      return {
+        mode: "rgb",
+        r: (color >> 12 & 15 | color >> 8 & 240) / 255,
+        g: (color >> 8 & 15 | color >> 4 & 240) / 255,
+        b: (color >> 4 & 15 | color & 240) / 255,
+        alpha: (color & 15 | color << 4 & 240) / 255
+      };
+    }
+    if (len === 6) {
+      return {
+        mode: "rgb",
+        r: (color >> 16 & 255) / 255,
+        g: (color >> 8 & 255) / 255,
+        b: (color & 255) / 255
+      };
+    }
+    if (len === 8) {
+      return {
+        mode: "rgb",
+        r: (color >> 24 & 255) / 255,
+        g: (color >> 16 & 255) / 255,
+        b: (color >> 8 & 255) / 255,
+        alpha: (color & 255) / 255
+      };
+    }
+  };
+  var parseNumber_default = parseNumber;
+
+  // node_modules/culori/src/colors/named.js
+  var named = {
+    aliceblue: 15792383,
+    antiquewhite: 16444375,
+    aqua: 65535,
+    aquamarine: 8388564,
+    azure: 15794175,
+    beige: 16119260,
+    bisque: 16770244,
+    black: 0,
+    blanchedalmond: 16772045,
+    blue: 255,
+    blueviolet: 9055202,
+    brown: 10824234,
+    burlywood: 14596231,
+    cadetblue: 6266528,
+    chartreuse: 8388352,
+    chocolate: 13789470,
+    coral: 16744272,
+    cornflowerblue: 6591981,
+    cornsilk: 16775388,
+    crimson: 14423100,
+    cyan: 65535,
+    darkblue: 139,
+    darkcyan: 35723,
+    darkgoldenrod: 12092939,
+    darkgray: 11119017,
+    darkgreen: 25600,
+    darkgrey: 11119017,
+    darkkhaki: 12433259,
+    darkmagenta: 9109643,
+    darkolivegreen: 5597999,
+    darkorange: 16747520,
+    darkorchid: 10040012,
+    darkred: 9109504,
+    darksalmon: 15308410,
+    darkseagreen: 9419919,
+    darkslateblue: 4734347,
+    darkslategray: 3100495,
+    darkslategrey: 3100495,
+    darkturquoise: 52945,
+    darkviolet: 9699539,
+    deeppink: 16716947,
+    deepskyblue: 49151,
+    dimgray: 6908265,
+    dimgrey: 6908265,
+    dodgerblue: 2003199,
+    firebrick: 11674146,
+    floralwhite: 16775920,
+    forestgreen: 2263842,
+    fuchsia: 16711935,
+    gainsboro: 14474460,
+    ghostwhite: 16316671,
+    gold: 16766720,
+    goldenrod: 14329120,
+    gray: 8421504,
+    green: 32768,
+    greenyellow: 11403055,
+    grey: 8421504,
+    honeydew: 15794160,
+    hotpink: 16738740,
+    indianred: 13458524,
+    indigo: 4915330,
+    ivory: 16777200,
+    khaki: 15787660,
+    lavender: 15132410,
+    lavenderblush: 16773365,
+    lawngreen: 8190976,
+    lemonchiffon: 16775885,
+    lightblue: 11393254,
+    lightcoral: 15761536,
+    lightcyan: 14745599,
+    lightgoldenrodyellow: 16448210,
+    lightgray: 13882323,
+    lightgreen: 9498256,
+    lightgrey: 13882323,
+    lightpink: 16758465,
+    lightsalmon: 16752762,
+    lightseagreen: 2142890,
+    lightskyblue: 8900346,
+    lightslategray: 7833753,
+    lightslategrey: 7833753,
+    lightsteelblue: 11584734,
+    lightyellow: 16777184,
+    lime: 65280,
+    limegreen: 3329330,
+    linen: 16445670,
+    magenta: 16711935,
+    maroon: 8388608,
+    mediumaquamarine: 6737322,
+    mediumblue: 205,
+    mediumorchid: 12211667,
+    mediumpurple: 9662683,
+    mediumseagreen: 3978097,
+    mediumslateblue: 8087790,
+    mediumspringgreen: 64154,
+    mediumturquoise: 4772300,
+    mediumvioletred: 13047173,
+    midnightblue: 1644912,
+    mintcream: 16121850,
+    mistyrose: 16770273,
+    moccasin: 16770229,
+    navajowhite: 16768685,
+    navy: 128,
+    oldlace: 16643558,
+    olive: 8421376,
+    olivedrab: 7048739,
+    orange: 16753920,
+    orangered: 16729344,
+    orchid: 14315734,
+    palegoldenrod: 15657130,
+    palegreen: 10025880,
+    paleturquoise: 11529966,
+    palevioletred: 14381203,
+    papayawhip: 16773077,
+    peachpuff: 16767673,
+    peru: 13468991,
+    pink: 16761035,
+    plum: 14524637,
+    powderblue: 11591910,
+    purple: 8388736,
+    // Added in CSS Colors Level 4:
+    // https://drafts.csswg.org/css-color/#changes-from-3
+    rebeccapurple: 6697881,
+    red: 16711680,
+    rosybrown: 12357519,
+    royalblue: 4286945,
+    saddlebrown: 9127187,
+    salmon: 16416882,
+    sandybrown: 16032864,
+    seagreen: 3050327,
+    seashell: 16774638,
+    sienna: 10506797,
+    silver: 12632256,
+    skyblue: 8900331,
+    slateblue: 6970061,
+    slategray: 7372944,
+    slategrey: 7372944,
+    snow: 16775930,
+    springgreen: 65407,
+    steelblue: 4620980,
+    tan: 13808780,
+    teal: 32896,
+    thistle: 14204888,
+    tomato: 16737095,
+    turquoise: 4251856,
+    violet: 15631086,
+    wheat: 16113331,
+    white: 16777215,
+    whitesmoke: 16119285,
+    yellow: 16776960,
+    yellowgreen: 10145074
+  };
+  var named_default = named;
+
+  // node_modules/culori/src/rgb/parseNamed.js
+  var parseNamed = (color) => {
+    return parseNumber_default(named_default[color.toLowerCase()], 6);
+  };
+  var parseNamed_default = parseNamed;
+
+  // node_modules/culori/src/rgb/parseHex.js
+  var hex = /^#?([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3})$/i;
+  var parseHex = (color) => {
+    let match;
+    return (match = color.match(hex)) ? parseNumber_default(parseInt(match[1], 16), match[1].length) : void 0;
+  };
+  var parseHex_default = parseHex;
+
+  // node_modules/culori/src/util/regex.js
+  var num = "([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)";
+  var num_none = `(?:${num}|none)`;
+  var per = `${num}%`;
+  var per_none = `(?:${num}%|none)`;
+  var num_per = `(?:${num}%|${num})`;
+  var num_per_none = `(?:${num}%|${num}|none)`;
+  var hue = `(?:${num}(deg|grad|rad|turn)|${num})`;
+  var hue_none = `(?:${num}(deg|grad|rad|turn)|${num}|none)`;
+  var c = `\\s*,\\s*`;
+  var rx_num_per_none = new RegExp("^" + num_per_none + "$");
+
+  // node_modules/culori/src/rgb/parseRgbLegacy.js
+  var rgb_num_old = new RegExp(
+    `^rgba?\\(\\s*${num}${c}${num}${c}${num}\\s*(?:,\\s*${num_per}\\s*)?\\)$`
+  );
+  var rgb_per_old = new RegExp(
+    `^rgba?\\(\\s*${per}${c}${per}${c}${per}\\s*(?:,\\s*${num_per}\\s*)?\\)$`
+  );
+  var parseRgbLegacy = (color) => {
+    let res = { mode: "rgb" };
+    let match;
+    if (match = color.match(rgb_num_old)) {
+      if (match[1] !== void 0) {
+        res.r = match[1] / 255;
+      }
+      if (match[2] !== void 0) {
+        res.g = match[2] / 255;
+      }
+      if (match[3] !== void 0) {
+        res.b = match[3] / 255;
+      }
+    } else if (match = color.match(rgb_per_old)) {
+      if (match[1] !== void 0) {
+        res.r = match[1] / 100;
+      }
+      if (match[2] !== void 0) {
+        res.g = match[2] / 100;
+      }
+      if (match[3] !== void 0) {
+        res.b = match[3] / 100;
+      }
+    } else {
+      return void 0;
+    }
+    if (match[4] !== void 0) {
+      res.alpha = Math.max(0, Math.min(1, match[4] / 100));
+    } else if (match[5] !== void 0) {
+      res.alpha = Math.max(0, Math.min(1, +match[5]));
+    }
+    return res;
+  };
+  var parseRgbLegacy_default = parseRgbLegacy;
+
+  // node_modules/culori/src/_prepare.js
+  var prepare = (color, mode) => color === void 0 ? void 0 : typeof color !== "object" ? parse_default(color) : color.mode !== void 0 ? color : mode ? { ...color, mode } : void 0;
+  var prepare_default = prepare;
+
+  // node_modules/culori/src/converter.js
+  var converter = (target_mode = "rgb") => (color) => (color = prepare_default(color, target_mode)) !== void 0 ? (
+    // if the color's mode corresponds to our target mode
+    color.mode === target_mode ? (
+      // then just return the color
+      color
+    ) : (
+      // otherwise check to see if we have a dedicated
+      // converter for the target mode
+      converters[color.mode][target_mode] ? (
+        // and return its result...
+        converters[color.mode][target_mode](color)
+      ) : (
+        // ...otherwise pass through RGB as an intermediary step.
+        // if the target mode is RGB...
+        target_mode === "rgb" ? (
+          // just return the RGB
+          converters[color.mode].rgb(color)
+        ) : (
+          // otherwise convert color.mode -> RGB -> target_mode
+          converters.rgb[target_mode](converters[color.mode].rgb(color))
+        )
+      )
+    )
+  ) : void 0;
+  var converter_default = converter;
+
+  // node_modules/culori/src/modes.js
+  var converters = {};
+  var modes = {};
+  var parsers = [];
+  var colorProfiles = {};
+  var identity = (v) => v;
+  var useMode = (definition11) => {
+    converters[definition11.mode] = {
+      ...converters[definition11.mode],
+      ...definition11.toMode
+    };
+    Object.keys(definition11.fromMode || {}).forEach((k3) => {
+      if (!converters[k3]) {
+        converters[k3] = {};
+      }
+      converters[k3][definition11.mode] = definition11.fromMode[k3];
+    });
+    if (!definition11.ranges) {
+      definition11.ranges = {};
+    }
+    if (!definition11.difference) {
+      definition11.difference = {};
+    }
+    definition11.channels.forEach((channel) => {
+      if (definition11.ranges[channel] === void 0) {
+        definition11.ranges[channel] = [0, 1];
+      }
+      if (!definition11.interpolate[channel]) {
+        throw new Error(`Missing interpolator for: ${channel}`);
+      }
+      if (typeof definition11.interpolate[channel] === "function") {
+        definition11.interpolate[channel] = {
+          use: definition11.interpolate[channel]
+        };
+      }
+      if (!definition11.interpolate[channel].fixup) {
+        definition11.interpolate[channel].fixup = identity;
+      }
+    });
+    modes[definition11.mode] = definition11;
+    (definition11.parse || []).forEach((parser) => {
+      useParser(parser, definition11.mode);
+    });
+    return converter_default(definition11.mode);
+  };
+  var getMode = (mode) => modes[mode];
+  var useParser = (parser, mode) => {
+    if (typeof parser === "string") {
+      if (!mode) {
+        throw new Error(`'mode' required when 'parser' is a string`);
+      }
+      colorProfiles[parser] = mode;
+    } else if (typeof parser === "function") {
+      if (parsers.indexOf(parser) < 0) {
+        parsers.push(parser);
+      }
+    }
+  };
+
+  // node_modules/culori/src/parse.js
+  var IdentStartCodePoint = /[^\x00-\x7F]|[a-zA-Z_]/;
+  var IdentCodePoint = /[^\x00-\x7F]|[-\w]/;
+  var Tok = {
+    Function: "function",
+    Ident: "ident",
+    Number: "number",
+    Percentage: "percentage",
+    ParenClose: ")",
+    None: "none",
+    Hue: "hue",
+    Alpha: "alpha"
+  };
+  var _i = 0;
+  function is_num(chars) {
+    let ch = chars[_i];
+    let ch1 = chars[_i + 1];
+    if (ch === "-" || ch === "+") {
+      return /\d/.test(ch1) || ch1 === "." && /\d/.test(chars[_i + 2]);
+    }
+    if (ch === ".") {
+      return /\d/.test(ch1);
+    }
+    return /\d/.test(ch);
+  }
+  function is_ident(chars) {
+    if (_i >= chars.length) {
+      return false;
+    }
+    let ch = chars[_i];
+    if (IdentStartCodePoint.test(ch)) {
+      return true;
+    }
+    if (ch === "-") {
+      if (chars.length - _i < 2) {
+        return false;
+      }
+      let ch1 = chars[_i + 1];
+      if (ch1 === "-" || IdentStartCodePoint.test(ch1)) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+  var huenits = {
+    deg: 1,
+    rad: 180 / Math.PI,
+    grad: 9 / 10,
+    turn: 360
+  };
+  function num2(chars) {
+    let value = "";
+    if (chars[_i] === "-" || chars[_i] === "+") {
+      value += chars[_i++];
+    }
+    value += digits(chars);
+    if (chars[_i] === "." && /\d/.test(chars[_i + 1])) {
+      value += chars[_i++] + digits(chars);
+    }
+    if (chars[_i] === "e" || chars[_i] === "E") {
+      if ((chars[_i + 1] === "-" || chars[_i + 1] === "+") && /\d/.test(chars[_i + 2])) {
+        value += chars[_i++] + chars[_i++] + digits(chars);
+      } else if (/\d/.test(chars[_i + 1])) {
+        value += chars[_i++] + digits(chars);
+      }
+    }
+    if (is_ident(chars)) {
+      let id = ident(chars);
+      if (id === "deg" || id === "rad" || id === "turn" || id === "grad") {
+        return { type: Tok.Hue, value: value * huenits[id] };
+      }
+      return void 0;
+    }
+    if (chars[_i] === "%") {
+      _i++;
+      return { type: Tok.Percentage, value: +value };
+    }
+    return { type: Tok.Number, value: +value };
+  }
+  function digits(chars) {
+    let v = "";
+    while (/\d/.test(chars[_i])) {
+      v += chars[_i++];
+    }
+    return v;
+  }
+  function ident(chars) {
+    let v = "";
+    while (_i < chars.length && IdentCodePoint.test(chars[_i])) {
+      v += chars[_i++];
+    }
+    return v;
+  }
+  function identlike(chars) {
+    let v = ident(chars);
+    if (chars[_i] === "(") {
+      _i++;
+      return { type: Tok.Function, value: v };
+    }
+    if (v === "none") {
+      return { type: Tok.None, value: void 0 };
+    }
+    return { type: Tok.Ident, value: v };
+  }
+  function tokenize(str = "") {
+    let chars = str.trim();
+    let tokens = [];
+    let ch;
+    _i = 0;
+    while (_i < chars.length) {
+      ch = chars[_i++];
+      if (ch === "\n" || ch === "	" || ch === " ") {
+        while (_i < chars.length && (chars[_i] === "\n" || chars[_i] === "	" || chars[_i] === " ")) {
+          _i++;
+        }
+        continue;
+      }
+      if (ch === ",") {
+        return void 0;
+      }
+      if (ch === ")") {
+        tokens.push({ type: Tok.ParenClose });
+        continue;
+      }
+      if (ch === "+") {
+        _i--;
+        if (is_num(chars)) {
+          tokens.push(num2(chars));
+          continue;
+        }
+        return void 0;
+      }
+      if (ch === "-") {
+        _i--;
+        if (is_num(chars)) {
+          tokens.push(num2(chars));
+          continue;
+        }
+        if (is_ident(chars)) {
+          tokens.push({ type: Tok.Ident, value: ident(chars) });
+          continue;
+        }
+        return void 0;
+      }
+      if (ch === ".") {
+        _i--;
+        if (is_num(chars)) {
+          tokens.push(num2(chars));
+          continue;
+        }
+        return void 0;
+      }
+      if (ch === "/") {
+        while (_i < chars.length && (chars[_i] === "\n" || chars[_i] === "	" || chars[_i] === " ")) {
+          _i++;
+        }
+        let alpha;
+        if (is_num(chars)) {
+          alpha = num2(chars);
+          if (alpha.type !== Tok.Hue) {
+            tokens.push({ type: Tok.Alpha, value: alpha });
+            continue;
+          }
+        }
+        if (is_ident(chars)) {
+          if (ident(chars) === "none") {
+            tokens.push({
+              type: Tok.Alpha,
+              value: { type: Tok.None, value: void 0 }
+            });
+            continue;
+          }
+        }
+        return void 0;
+      }
+      if (/\d/.test(ch)) {
+        _i--;
+        tokens.push(num2(chars));
+        continue;
+      }
+      if (IdentStartCodePoint.test(ch)) {
+        _i--;
+        tokens.push(identlike(chars));
+        continue;
+      }
+      return void 0;
+    }
+    return tokens;
+  }
+  function parseColorSyntax(tokens) {
+    tokens._i = 0;
+    let token = tokens[tokens._i++];
+    if (!token || token.type !== Tok.Function || token.value !== "color") {
+      return void 0;
+    }
+    token = tokens[tokens._i++];
+    if (token.type !== Tok.Ident) {
+      return void 0;
+    }
+    const mode = colorProfiles[token.value];
+    if (!mode) {
+      return void 0;
+    }
+    const res = { mode };
+    const coords = consumeCoords(tokens, false);
+    if (!coords) {
+      return void 0;
+    }
+    const channels = getMode(mode).channels;
+    for (let ii = 0, c2, ch; ii < channels.length; ii++) {
+      c2 = coords[ii];
+      ch = channels[ii];
+      if (c2.type !== Tok.None) {
+        res[ch] = c2.type === Tok.Number ? c2.value : c2.value / 100;
+        if (ch === "alpha") {
+          res[ch] = Math.max(0, Math.min(1, res[ch]));
+        }
+      }
+    }
+    return res;
+  }
+  function consumeCoords(tokens, includeHue) {
+    const coords = [];
+    let token;
+    while (tokens._i < tokens.length) {
+      token = tokens[tokens._i++];
+      if (token.type === Tok.None || token.type === Tok.Number || token.type === Tok.Alpha || token.type === Tok.Percentage || includeHue && token.type === Tok.Hue) {
+        coords.push(token);
+        continue;
+      }
+      if (token.type === Tok.ParenClose) {
+        if (tokens._i < tokens.length) {
+          return void 0;
+        }
+        continue;
+      }
+      return void 0;
+    }
+    if (coords.length < 3 || coords.length > 4) {
+      return void 0;
+    }
+    if (coords.length === 4) {
+      if (coords[3].type !== Tok.Alpha) {
+        return void 0;
+      }
+      coords[3] = coords[3].value;
+    }
+    if (coords.length === 3) {
+      coords.push({ type: Tok.None, value: void 0 });
+    }
+    return coords.every((c2) => c2.type !== Tok.Alpha) ? coords : void 0;
+  }
+  function parseModernSyntax(tokens, includeHue) {
+    tokens._i = 0;
+    let token = tokens[tokens._i++];
+    if (!token || token.type !== Tok.Function) {
+      return void 0;
+    }
+    let coords = consumeCoords(tokens, includeHue);
+    if (!coords) {
+      return void 0;
+    }
+    coords.unshift(token.value);
+    return coords;
+  }
+  var parse = (color) => {
+    if (typeof color !== "string") {
+      return void 0;
+    }
+    const tokens = tokenize(color);
+    const parsed = tokens ? parseModernSyntax(tokens, true) : void 0;
+    let result = void 0;
+    let i = 0;
+    let len = parsers.length;
+    while (i < len) {
+      if ((result = parsers[i++](color, parsed)) !== void 0) {
+        return result;
+      }
+    }
+    return tokens ? parseColorSyntax(tokens) : void 0;
+  };
+  var parse_default = parse;
+
+  // node_modules/culori/src/rgb/parseRgb.js
+  function parseRgb(color, parsed) {
+    if (!parsed || parsed[0] !== "rgb" && parsed[0] !== "rgba") {
+      return void 0;
+    }
+    const res = { mode: "rgb" };
+    const [, r2, g, b, alpha] = parsed;
+    if (r2.type === Tok.Hue || g.type === Tok.Hue || b.type === Tok.Hue) {
+      return void 0;
+    }
+    if (r2.type !== Tok.None) {
+      res.r = r2.type === Tok.Number ? r2.value / 255 : r2.value / 100;
+    }
+    if (g.type !== Tok.None) {
+      res.g = g.type === Tok.Number ? g.value / 255 : g.value / 100;
+    }
+    if (b.type !== Tok.None) {
+      res.b = b.type === Tok.Number ? b.value / 255 : b.value / 100;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseRgb_default = parseRgb;
+
+  // node_modules/culori/src/rgb/parseTransparent.js
+  var parseTransparent = (c2) => c2 === "transparent" ? { mode: "rgb", r: 0, g: 0, b: 0, alpha: 0 } : void 0;
+  var parseTransparent_default = parseTransparent;
+
+  // node_modules/culori/src/interpolate/lerp.js
+  var lerp = (a, b, t) => a + t * (b - a);
+
+  // node_modules/culori/src/interpolate/piecewise.js
+  var get_classes = (arr) => {
+    let classes = [];
+    for (let i = 0; i < arr.length - 1; i++) {
+      let a = arr[i];
+      let b = arr[i + 1];
+      if (a === void 0 && b === void 0) {
+        classes.push(void 0);
+      } else if (a !== void 0 && b !== void 0) {
+        classes.push([a, b]);
+      } else {
+        classes.push(a !== void 0 ? [a, a] : [b, b]);
+      }
+    }
+    return classes;
+  };
+  var interpolatorPiecewise = (interpolator) => (arr) => {
+    let classes = get_classes(arr);
+    return (t) => {
+      let cls = t * classes.length;
+      let idx = t >= 1 ? classes.length - 1 : Math.max(Math.floor(cls), 0);
+      let pair = classes[idx];
+      return pair === void 0 ? void 0 : interpolator(pair[0], pair[1], cls - idx);
+    };
+  };
+
+  // node_modules/culori/src/interpolate/linear.js
+  var interpolatorLinear = interpolatorPiecewise(lerp);
+
+  // node_modules/culori/src/fixup/alpha.js
+  var fixupAlpha = (arr) => {
+    let some_defined = false;
+    let res = arr.map((v) => {
+      if (v !== void 0) {
+        some_defined = true;
+        return v;
+      }
+      return 1;
+    });
+    return some_defined ? res : arr;
+  };
+
+  // node_modules/culori/src/rgb/definition.js
+  var definition = {
+    mode: "rgb",
+    channels: ["r", "g", "b", "alpha"],
+    parse: [
+      parseRgb_default,
+      parseHex_default,
+      parseRgbLegacy_default,
+      parseNamed_default,
+      parseTransparent_default,
+      "srgb"
+    ],
+    serialize: "srgb",
+    interpolate: {
+      r: interpolatorLinear,
+      g: interpolatorLinear,
+      b: interpolatorLinear,
+      alpha: { use: interpolatorLinear, fixup: fixupAlpha }
+    },
+    gamut: true,
+    white: { r: 1, g: 1, b: 1 },
+    black: { r: 0, g: 0, b: 0 }
+  };
+  var definition_default = definition;
+
+  // node_modules/culori/src/lrgb/convertRgbToLrgb.js
+  var fn = (c2 = 0) => {
+    const abs = Math.abs(c2);
+    if (abs <= 0.04045) {
+      return c2 / 12.92;
+    }
+    return (Math.sign(c2) || 1) * Math.pow((abs + 0.055) / 1.055, 2.4);
+  };
+  var convertRgbToLrgb = ({ r: r2, g, b, alpha }) => {
+    let res = {
+      mode: "lrgb",
+      r: fn(r2),
+      g: fn(g),
+      b: fn(b)
+    };
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  };
+  var convertRgbToLrgb_default = convertRgbToLrgb;
+
+  // node_modules/culori/src/xyz65/convertRgbToXyz65.js
+  var convertRgbToXyz65 = (rgb4) => {
+    let { r: r2, g, b, alpha } = convertRgbToLrgb_default(rgb4);
+    let res = {
+      mode: "xyz65",
+      x: 0.4123907992659593 * r2 + 0.357584339383878 * g + 0.1804807884018343 * b,
+      y: 0.2126390058715102 * r2 + 0.715168678767756 * g + 0.0721923153607337 * b,
+      z: 0.0193308187155918 * r2 + 0.119194779794626 * g + 0.9505321522496607 * b
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertRgbToXyz65_default = convertRgbToXyz65;
+
+  // node_modules/culori/src/lrgb/convertLrgbToRgb.js
+  var fn2 = (c2 = 0) => {
+    const abs = Math.abs(c2);
+    if (abs > 31308e-7) {
+      return (Math.sign(c2) || 1) * (1.055 * Math.pow(abs, 1 / 2.4) - 0.055);
+    }
+    return c2 * 12.92;
+  };
+  var convertLrgbToRgb = ({ r: r2, g, b, alpha }, mode = "rgb") => {
+    let res = {
+      mode,
+      r: fn2(r2),
+      g: fn2(g),
+      b: fn2(b)
+    };
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  };
+  var convertLrgbToRgb_default = convertLrgbToRgb;
+
+  // node_modules/culori/src/xyz65/convertXyz65ToRgb.js
+  var convertXyz65ToRgb = ({ x, y, z, alpha }) => {
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = convertLrgbToRgb_default({
+      r: x * 3.2409699419045226 - y * 1.537383177570094 - 0.4986107602930034 * z,
+      g: x * -0.9692436362808796 + y * 1.8759675015077204 + 0.0415550574071756 * z,
+      b: x * 0.0556300796969936 - y * 0.2039769588889765 + 1.0569715142428784 * z
+    });
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz65ToRgb_default = convertXyz65ToRgb;
+
+  // node_modules/culori/src/util/normalizeHue.js
+  var normalizeHue = (hue3) => (hue3 = hue3 % 360) < 0 ? hue3 + 360 : hue3;
+  var normalizeHue_default = normalizeHue;
+
+  // node_modules/culori/src/fixup/hue.js
+  var hue2 = (hues, fn4) => {
+    return hues.map((hue3, idx, arr) => {
+      if (hue3 === void 0) {
+        return hue3;
+      }
+      let normalized = normalizeHue_default(hue3);
+      if (idx === 0 || hues[idx - 1] === void 0) {
+        return normalized;
+      }
+      return fn4(normalized - normalizeHue_default(arr[idx - 1]));
+    }).reduce((acc, curr) => {
+      if (!acc.length || curr === void 0 || acc[acc.length - 1] === void 0) {
+        acc.push(curr);
+        return acc;
+      }
+      acc.push(curr + acc[acc.length - 1]);
+      return acc;
+    }, []);
+  };
+  var fixupHueShorter = (arr) => hue2(arr, (d) => Math.abs(d) <= 180 ? d : d - 360 * Math.sign(d));
+
+  // node_modules/culori/src/difference.js
+  var differenceHueSaturation = (std, smp) => {
+    if (std.h === void 0 || smp.h === void 0 || !std.s || !smp.s) {
+      return 0;
+    }
+    let std_h = normalizeHue_default(std.h);
+    let smp_h = normalizeHue_default(smp.h);
+    let dH = Math.sin((smp_h - std_h + 360) / 2 * Math.PI / 180);
+    return 2 * Math.sqrt(std.s * smp.s) * dH;
+  };
+  var differenceHueChroma = (std, smp) => {
+    if (std.h === void 0 || smp.h === void 0 || !std.c || !smp.c) {
+      return 0;
+    }
+    let std_h = normalizeHue_default(std.h);
+    let smp_h = normalizeHue_default(smp.h);
+    let dH = Math.sin((smp_h - std_h + 360) / 2 * Math.PI / 180);
+    return 2 * Math.sqrt(std.c * smp.c) * dH;
+  };
+  var differenceEuclidean = (mode = "rgb", weights = [1, 1, 1, 0]) => {
+    let def = getMode(mode);
+    let channels = def.channels;
+    let diffs = def.difference;
+    let conv = converter_default(mode);
+    return (std, smp) => {
+      let ConvStd = conv(std);
+      let ConvSmp = conv(smp);
+      return Math.sqrt(
+        channels.reduce((sum, k3, idx) => {
+          let delta = diffs[k3] ? diffs[k3](ConvStd, ConvSmp) : ConvStd[k3] - ConvSmp[k3];
+          return sum + (weights[idx] || 0) * Math.pow(isNaN(delta) ? 0 : delta, 2);
+        }, 0)
+      );
+    };
+  };
+
+  // node_modules/culori/src/average.js
+  var averageAngle = (val) => {
+    let sum = val.reduce(
+      (sum2, val2) => {
+        if (val2 !== void 0) {
+          let rad = val2 * Math.PI / 180;
+          sum2.sin += Math.sin(rad);
+          sum2.cos += Math.cos(rad);
+        }
+        return sum2;
+      },
+      { sin: 0, cos: 0 }
+    );
+    let angle = Math.atan2(sum.sin, sum.cos) * 180 / Math.PI;
+    return angle < 0 ? 360 + angle : angle;
+  };
+
+  // node_modules/culori/src/lch/convertLabToLch.js
+  var convertLabToLch = ({ l, a, b, alpha }, mode = "lch") => {
+    if (a === void 0) a = 0;
+    if (b === void 0) b = 0;
+    let c2 = Math.sqrt(a * a + b * b);
+    let res = { mode, l, c: c2 };
+    if (c2) res.h = normalizeHue_default(Math.atan2(b, a) * 180 / Math.PI);
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  };
+  var convertLabToLch_default = convertLabToLch;
+
+  // node_modules/culori/src/lch/convertLchToLab.js
+  var convertLchToLab = ({ l, c: c2, h, alpha }, mode = "lab") => {
+    if (h === void 0) h = 0;
+    let res = {
+      mode,
+      l,
+      a: c2 ? c2 * Math.cos(h / 180 * Math.PI) : 0,
+      b: c2 ? c2 * Math.sin(h / 180 * Math.PI) : 0
+    };
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  };
+  var convertLchToLab_default = convertLchToLab;
+
+  // node_modules/culori/src/constants.js
+  var D50 = {
+    X: 0.3457 / 0.3585,
+    Y: 1,
+    Z: (1 - 0.3457 - 0.3585) / 0.3585
+  };
+  var D65 = {
+    X: 0.3127 / 0.329,
+    Y: 1,
+    Z: (1 - 0.3127 - 0.329) / 0.329
+  };
+  var k = Math.pow(29, 3) / Math.pow(3, 3);
+  var e = Math.pow(6, 3) / Math.pow(29, 3);
+
+  // node_modules/culori/src/hsl/convertHslToRgb.js
+  function convertHslToRgb({ h, s, l, alpha }) {
+    h = normalizeHue_default(h !== void 0 ? h : 0);
+    if (s === void 0) s = 0;
+    if (l === void 0) l = 0;
+    let m1 = l + s * (l < 0.5 ? l : 1 - l);
+    let m2 = m1 - (m1 - l) * 2 * Math.abs(h / 60 % 2 - 1);
+    let res;
+    switch (Math.floor(h / 60)) {
+      case 0:
+        res = { r: m1, g: m2, b: 2 * l - m1 };
+        break;
+      case 1:
+        res = { r: m2, g: m1, b: 2 * l - m1 };
+        break;
+      case 2:
+        res = { r: 2 * l - m1, g: m1, b: m2 };
+        break;
+      case 3:
+        res = { r: 2 * l - m1, g: m2, b: m1 };
+        break;
+      case 4:
+        res = { r: m2, g: 2 * l - m1, b: m1 };
+        break;
+      case 5:
+        res = { r: m1, g: 2 * l - m1, b: m2 };
+        break;
+      default:
+        res = { r: 2 * l - m1, g: 2 * l - m1, b: 2 * l - m1 };
+    }
+    res.mode = "rgb";
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  }
+
+  // node_modules/culori/src/hsl/convertRgbToHsl.js
+  function convertRgbToHsl({ r: r2, g, b, alpha }) {
+    if (r2 === void 0) r2 = 0;
+    if (g === void 0) g = 0;
+    if (b === void 0) b = 0;
+    let M = Math.max(r2, g, b), m = Math.min(r2, g, b);
+    let res = {
+      mode: "hsl",
+      s: M === m ? 0 : (M - m) / (1 - Math.abs(M + m - 1)),
+      l: 0.5 * (M + m)
+    };
+    if (M - m !== 0)
+      res.h = (M === r2 ? (g - b) / (M - m) + (g < b) * 6 : M === g ? (b - r2) / (M - m) + 2 : (r2 - g) / (M - m) + 4) * 60;
+    if (alpha !== void 0) res.alpha = alpha;
+    return res;
+  }
+
+  // node_modules/culori/src/util/hue.js
+  var hueToDeg = (val, unit) => {
+    switch (unit) {
+      case "deg":
+        return +val;
+      case "rad":
+        return val / Math.PI * 180;
+      case "grad":
+        return val / 10 * 9;
+      case "turn":
+        return val * 360;
+    }
+  };
+  var hue_default = hueToDeg;
+
+  // node_modules/culori/src/hsl/parseHslLegacy.js
+  var hsl_old = new RegExp(
+    `^hsla?\\(\\s*${hue}${c}${per}${c}${per}\\s*(?:,\\s*${num_per}\\s*)?\\)$`
+  );
+  var parseHslLegacy = (color) => {
+    let match = color.match(hsl_old);
+    if (!match) return;
+    let res = { mode: "hsl" };
+    if (match[3] !== void 0) {
+      res.h = +match[3];
+    } else if (match[1] !== void 0 && match[2] !== void 0) {
+      res.h = hue_default(match[1], match[2]);
+    }
+    if (match[4] !== void 0) {
+      res.s = Math.min(Math.max(0, match[4] / 100), 1);
+    }
+    if (match[5] !== void 0) {
+      res.l = Math.min(Math.max(0, match[5] / 100), 1);
+    }
+    if (match[6] !== void 0) {
+      res.alpha = Math.max(0, Math.min(1, match[6] / 100));
+    } else if (match[7] !== void 0) {
+      res.alpha = Math.max(0, Math.min(1, +match[7]));
+    }
+    return res;
+  };
+  var parseHslLegacy_default = parseHslLegacy;
+
+  // node_modules/culori/src/hsl/parseHsl.js
+  function parseHsl(color, parsed) {
+    if (!parsed || parsed[0] !== "hsl" && parsed[0] !== "hsla") {
+      return void 0;
+    }
+    const res = { mode: "hsl" };
+    const [, h, s, l, alpha] = parsed;
+    if (h.type !== Tok.None) {
+      if (h.type === Tok.Percentage) {
+        return void 0;
+      }
+      res.h = h.value;
+    }
+    if (s.type !== Tok.None) {
+      if (s.type === Tok.Hue) {
+        return void 0;
+      }
+      res.s = s.value / 100;
+    }
+    if (l.type !== Tok.None) {
+      if (l.type === Tok.Hue) {
+        return void 0;
+      }
+      res.l = l.value / 100;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseHsl_default = parseHsl;
+
+  // node_modules/culori/src/hsl/definition.js
+  var definition2 = {
+    mode: "hsl",
+    toMode: {
+      rgb: convertHslToRgb
+    },
+    fromMode: {
+      rgb: convertRgbToHsl
+    },
+    channels: ["h", "s", "l", "alpha"],
+    ranges: {
+      h: [0, 360]
+    },
+    gamut: "rgb",
+    parse: [parseHsl_default, parseHslLegacy_default],
+    serialize: (c2) => `hsl(${c2.h !== void 0 ? c2.h : "none"} ${c2.s !== void 0 ? c2.s * 100 + "%" : "none"} ${c2.l !== void 0 ? c2.l * 100 + "%" : "none"}${c2.alpha < 1 ? ` / ${c2.alpha}` : ""})`,
+    interpolate: {
+      h: { use: interpolatorLinear, fixup: fixupHueShorter },
+      s: interpolatorLinear,
+      l: interpolatorLinear,
+      alpha: { use: interpolatorLinear, fixup: fixupAlpha }
+    },
+    difference: {
+      h: differenceHueSaturation
+    },
+    average: {
+      h: averageAngle
+    }
+  };
+  var definition_default2 = definition2;
+
+  // node_modules/culori/src/xyz50/constants.js
+  var k2 = Math.pow(29, 3) / Math.pow(3, 3);
+  var e2 = Math.pow(6, 3) / Math.pow(29, 3);
+
+  // node_modules/culori/src/lab/convertLabToXyz50.js
+  var fn3 = (v) => Math.pow(v, 3) > e2 ? Math.pow(v, 3) : (116 * v - 16) / k2;
+  var convertLabToXyz50 = ({ l, a, b, alpha }) => {
+    if (l === void 0) l = 0;
+    if (a === void 0) a = 0;
+    if (b === void 0) b = 0;
+    let fy = (l + 16) / 116;
+    let fx = a / 500 + fy;
+    let fz = fy - b / 200;
+    let res = {
+      mode: "xyz50",
+      x: fn3(fx) * D50.X,
+      y: fn3(fy) * D50.Y,
+      z: fn3(fz) * D50.Z
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertLabToXyz50_default = convertLabToXyz50;
+
+  // node_modules/culori/src/xyz50/convertXyz50ToRgb.js
+  var convertXyz50ToRgb = ({ x, y, z, alpha }) => {
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = convertLrgbToRgb_default({
+      r: x * 3.1341359569958707 - y * 1.6173863321612538 - 0.4906619460083532 * z,
+      g: x * -0.978795502912089 + y * 1.916254567259524 + 0.03344273116131949 * z,
+      b: x * 0.07195537988411677 - y * 0.2289768264158322 + 1.405386058324125 * z
+    });
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz50ToRgb_default = convertXyz50ToRgb;
+
+  // node_modules/culori/src/lab/convertLabToRgb.js
+  var convertLabToRgb = (lab2) => convertXyz50ToRgb_default(convertLabToXyz50_default(lab2));
+  var convertLabToRgb_default = convertLabToRgb;
+
+  // node_modules/culori/src/xyz50/convertRgbToXyz50.js
+  var convertRgbToXyz50 = (rgb4) => {
+    let { r: r2, g, b, alpha } = convertRgbToLrgb_default(rgb4);
+    let res = {
+      mode: "xyz50",
+      x: 0.436065742824811 * r2 + 0.3851514688337912 * g + 0.14307845442264197 * b,
+      y: 0.22249319175623702 * r2 + 0.7168870538238823 * g + 0.06061979053616537 * b,
+      z: 0.013923904500943465 * r2 + 0.09708128566574634 * g + 0.7140993584005155 * b
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertRgbToXyz50_default = convertRgbToXyz50;
+
+  // node_modules/culori/src/lab/convertXyz50ToLab.js
+  var f = (value) => value > e2 ? Math.cbrt(value) : (k2 * value + 16) / 116;
+  var convertXyz50ToLab = ({ x, y, z, alpha }) => {
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let f0 = f(x / D50.X);
+    let f1 = f(y / D50.Y);
+    let f2 = f(z / D50.Z);
+    let res = {
+      mode: "lab",
+      l: 116 * f1 - 16,
+      a: 500 * (f0 - f1),
+      b: 200 * (f1 - f2)
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz50ToLab_default = convertXyz50ToLab;
+
+  // node_modules/culori/src/lab/convertRgbToLab.js
+  var convertRgbToLab = (rgb4) => {
+    let res = convertXyz50ToLab_default(convertRgbToXyz50_default(rgb4));
+    if (rgb4.r === rgb4.b && rgb4.b === rgb4.g) {
+      res.a = res.b = 0;
+    }
+    return res;
+  };
+  var convertRgbToLab_default = convertRgbToLab;
+
+  // node_modules/culori/src/lab/parseLab.js
+  function parseLab(color, parsed) {
+    if (!parsed || parsed[0] !== "lab") {
+      return void 0;
+    }
+    const res = { mode: "lab" };
+    const [, l, a, b, alpha] = parsed;
+    if (l.type === Tok.Hue || a.type === Tok.Hue || b.type === Tok.Hue) {
+      return void 0;
+    }
+    if (l.type !== Tok.None) {
+      res.l = Math.min(Math.max(0, l.value), 100);
+    }
+    if (a.type !== Tok.None) {
+      res.a = a.type === Tok.Number ? a.value : a.value * 125 / 100;
+    }
+    if (b.type !== Tok.None) {
+      res.b = b.type === Tok.Number ? b.value : b.value * 125 / 100;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseLab_default = parseLab;
+
+  // node_modules/culori/src/lab/definition.js
+  var definition3 = {
+    mode: "lab",
+    toMode: {
+      xyz50: convertLabToXyz50_default,
+      rgb: convertLabToRgb_default
+    },
+    fromMode: {
+      xyz50: convertXyz50ToLab_default,
+      rgb: convertRgbToLab_default
+    },
+    channels: ["l", "a", "b", "alpha"],
+    ranges: {
+      l: [0, 100],
+      a: [-125, 125],
+      b: [-125, 125]
+    },
+    parse: [parseLab_default],
+    serialize: (c2) => `lab(${c2.l !== void 0 ? c2.l : "none"} ${c2.a !== void 0 ? c2.a : "none"} ${c2.b !== void 0 ? c2.b : "none"}${c2.alpha < 1 ? ` / ${c2.alpha}` : ""})`,
+    interpolate: {
+      l: interpolatorLinear,
+      a: interpolatorLinear,
+      b: interpolatorLinear,
+      alpha: { use: interpolatorLinear, fixup: fixupAlpha }
+    }
+  };
+  var definition_default3 = definition3;
+
+  // node_modules/culori/src/lch/parseLch.js
+  function parseLch(color, parsed) {
+    if (!parsed || parsed[0] !== "lch") {
+      return void 0;
+    }
+    const res = { mode: "lch" };
+    const [, l, c2, h, alpha] = parsed;
+    if (l.type !== Tok.None) {
+      if (l.type === Tok.Hue) {
+        return void 0;
+      }
+      res.l = Math.min(Math.max(0, l.value), 100);
+    }
+    if (c2.type !== Tok.None) {
+      res.c = Math.max(
+        0,
+        c2.type === Tok.Number ? c2.value : c2.value * 150 / 100
+      );
+    }
+    if (h.type !== Tok.None) {
+      if (h.type === Tok.Percentage) {
+        return void 0;
+      }
+      res.h = h.value;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseLch_default = parseLch;
+
+  // node_modules/culori/src/lch/definition.js
+  var definition4 = {
+    mode: "lch",
+    toMode: {
+      lab: convertLchToLab_default,
+      rgb: (c2) => convertLabToRgb_default(convertLchToLab_default(c2))
+    },
+    fromMode: {
+      rgb: (c2) => convertLabToLch_default(convertRgbToLab_default(c2)),
+      lab: convertLabToLch_default
+    },
+    channels: ["l", "c", "h", "alpha"],
+    ranges: {
+      l: [0, 100],
+      c: [0, 150],
+      h: [0, 360]
+    },
+    parse: [parseLch_default],
+    serialize: (c2) => `lch(${c2.l !== void 0 ? c2.l : "none"} ${c2.c !== void 0 ? c2.c : "none"} ${c2.h !== void 0 ? c2.h : "none"}${c2.alpha < 1 ? ` / ${c2.alpha}` : ""})`,
+    interpolate: {
+      h: { use: interpolatorLinear, fixup: fixupHueShorter },
+      c: interpolatorLinear,
+      l: interpolatorLinear,
+      alpha: { use: interpolatorLinear, fixup: fixupAlpha }
+    },
+    difference: {
+      h: differenceHueChroma
+    },
+    average: {
+      h: averageAngle
+    }
+  };
+  var definition_default4 = definition4;
+
+  // node_modules/culori/src/lrgb/definition.js
+  var definition5 = {
+    ...definition_default,
+    mode: "lrgb",
+    toMode: {
+      rgb: convertLrgbToRgb_default
+    },
+    fromMode: {
+      rgb: convertRgbToLrgb_default
+    },
+    parse: ["srgb-linear"],
+    serialize: "srgb-linear"
+  };
+  var definition_default5 = definition5;
+
+  // node_modules/culori/src/oklab/convertLrgbToOklab.js
+  var convertLrgbToOklab = ({ r: r2, g, b, alpha }) => {
+    if (r2 === void 0) r2 = 0;
+    if (g === void 0) g = 0;
+    if (b === void 0) b = 0;
+    let L = Math.cbrt(
+      0.412221469470763 * r2 + 0.5363325372617348 * g + 0.0514459932675022 * b
+    );
+    let M = Math.cbrt(
+      0.2119034958178252 * r2 + 0.6806995506452344 * g + 0.1073969535369406 * b
+    );
+    let S = Math.cbrt(
+      0.0883024591900564 * r2 + 0.2817188391361215 * g + 0.6299787016738222 * b
+    );
+    let res = {
+      mode: "oklab",
+      l: 0.210454268309314 * L + 0.7936177747023054 * M - 0.0040720430116193 * S,
+      a: 1.9779985324311684 * L - 2.42859224204858 * M + 0.450593709617411 * S,
+      b: 0.0259040424655478 * L + 0.7827717124575296 * M - 0.8086757549230774 * S
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertLrgbToOklab_default = convertLrgbToOklab;
+
+  // node_modules/culori/src/oklab/convertRgbToOklab.js
+  var convertRgbToOklab = (rgb4) => {
+    let res = convertLrgbToOklab_default(convertRgbToLrgb_default(rgb4));
+    if (rgb4.r === rgb4.b && rgb4.b === rgb4.g) {
+      res.a = res.b = 0;
+    }
+    return res;
+  };
+  var convertRgbToOklab_default = convertRgbToOklab;
+
+  // node_modules/culori/src/oklab/convertOklabToLrgb.js
+  var convertOklabToLrgb = ({ l, a, b, alpha }) => {
+    if (l === void 0) l = 0;
+    if (a === void 0) a = 0;
+    if (b === void 0) b = 0;
+    let L = Math.pow(l + 0.3963377773761749 * a + 0.2158037573099136 * b, 3);
+    let M = Math.pow(l - 0.1055613458156586 * a - 0.0638541728258133 * b, 3);
+    let S = Math.pow(l - 0.0894841775298119 * a - 1.2914855480194092 * b, 3);
+    let res = {
+      mode: "lrgb",
+      r: 4.076741636075957 * L - 3.3077115392580616 * M + 0.2309699031821044 * S,
+      g: -1.2684379732850317 * L + 2.6097573492876887 * M - 0.3413193760026573 * S,
+      b: -0.0041960761386756 * L - 0.7034186179359362 * M + 1.7076146940746117 * S
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertOklabToLrgb_default = convertOklabToLrgb;
+
+  // node_modules/culori/src/oklab/convertOklabToRgb.js
+  var convertOklabToRgb = (c2) => convertLrgbToRgb_default(convertOklabToLrgb_default(c2));
+  var convertOklabToRgb_default = convertOklabToRgb;
+
+  // node_modules/culori/src/oklab/parseOklab.js
+  function parseOklab(color, parsed) {
+    if (!parsed || parsed[0] !== "oklab") {
+      return void 0;
+    }
+    const res = { mode: "oklab" };
+    const [, l, a, b, alpha] = parsed;
+    if (l.type === Tok.Hue || a.type === Tok.Hue || b.type === Tok.Hue) {
+      return void 0;
+    }
+    if (l.type !== Tok.None) {
+      res.l = Math.min(
+        Math.max(0, l.type === Tok.Number ? l.value : l.value / 100),
+        1
+      );
+    }
+    if (a.type !== Tok.None) {
+      res.a = a.type === Tok.Number ? a.value : a.value * 0.4 / 100;
+    }
+    if (b.type !== Tok.None) {
+      res.b = b.type === Tok.Number ? b.value : b.value * 0.4 / 100;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseOklab_default = parseOklab;
+
+  // node_modules/culori/src/oklab/definition.js
+  var definition6 = {
+    ...definition_default3,
+    mode: "oklab",
+    toMode: {
+      lrgb: convertOklabToLrgb_default,
+      rgb: convertOklabToRgb_default
+    },
+    fromMode: {
+      lrgb: convertLrgbToOklab_default,
+      rgb: convertRgbToOklab_default
+    },
+    ranges: {
+      l: [0, 1],
+      a: [-0.4, 0.4],
+      b: [-0.4, 0.4]
+    },
+    parse: [parseOklab_default],
+    serialize: (c2) => `oklab(${c2.l !== void 0 ? c2.l : "none"} ${c2.a !== void 0 ? c2.a : "none"} ${c2.b !== void 0 ? c2.b : "none"}${c2.alpha < 1 ? ` / ${c2.alpha}` : ""})`
+  };
+  var definition_default6 = definition6;
+
+  // node_modules/culori/src/oklch/parseOklch.js
+  function parseOklch(color, parsed) {
+    if (!parsed || parsed[0] !== "oklch") {
+      return void 0;
+    }
+    const res = { mode: "oklch" };
+    const [, l, c2, h, alpha] = parsed;
+    if (l.type !== Tok.None) {
+      if (l.type === Tok.Hue) {
+        return void 0;
+      }
+      res.l = Math.min(
+        Math.max(0, l.type === Tok.Number ? l.value : l.value / 100),
+        1
+      );
+    }
+    if (c2.type !== Tok.None) {
+      res.c = Math.max(
+        0,
+        c2.type === Tok.Number ? c2.value : c2.value * 0.4 / 100
+      );
+    }
+    if (h.type !== Tok.None) {
+      if (h.type === Tok.Percentage) {
+        return void 0;
+      }
+      res.h = h.value;
+    }
+    if (alpha.type !== Tok.None) {
+      res.alpha = Math.min(
+        1,
+        Math.max(
+          0,
+          alpha.type === Tok.Number ? alpha.value : alpha.value / 100
+        )
+      );
+    }
+    return res;
+  }
+  var parseOklch_default = parseOklch;
+
+  // node_modules/culori/src/oklch/definition.js
+  var definition7 = {
+    ...definition_default4,
+    mode: "oklch",
+    toMode: {
+      oklab: (c2) => convertLchToLab_default(c2, "oklab"),
+      rgb: (c2) => convertOklabToRgb_default(convertLchToLab_default(c2, "oklab"))
+    },
+    fromMode: {
+      rgb: (c2) => convertLabToLch_default(convertRgbToOklab_default(c2), "oklch"),
+      oklab: (c2) => convertLabToLch_default(c2, "oklch")
+    },
+    parse: [parseOklch_default],
+    serialize: (c2) => `oklch(${c2.l !== void 0 ? c2.l : "none"} ${c2.c !== void 0 ? c2.c : "none"} ${c2.h !== void 0 ? c2.h : "none"}${c2.alpha < 1 ? ` / ${c2.alpha}` : ""})`,
+    ranges: {
+      l: [0, 1],
+      c: [0, 0.4],
+      h: [0, 360]
+    }
+  };
+  var definition_default7 = definition7;
+
+  // node_modules/culori/src/p3/convertP3ToXyz65.js
+  var convertP3ToXyz65 = (rgb4) => {
+    let { r: r2, g, b, alpha } = convertRgbToLrgb_default(rgb4);
+    let res = {
+      mode: "xyz65",
+      x: 0.486570948648216 * r2 + 0.265667693169093 * g + 0.1982172852343625 * b,
+      y: 0.2289745640697487 * r2 + 0.6917385218365062 * g + 0.079286914093745 * b,
+      z: 0 * r2 + 0.0451133818589026 * g + 1.043944368900976 * b
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertP3ToXyz65_default = convertP3ToXyz65;
+
+  // node_modules/culori/src/p3/convertXyz65ToP3.js
+  var convertXyz65ToP3 = ({ x, y, z, alpha }) => {
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = convertLrgbToRgb_default(
+      {
+        r: x * 2.4934969119414263 - y * 0.9313836179191242 - 0.402710784450717 * z,
+        g: x * -0.8294889695615749 + y * 1.7626640603183465 + 0.0236246858419436 * z,
+        b: x * 0.0358458302437845 - y * 0.0761723892680418 + 0.9568845240076871 * z
+      },
+      "p3"
+    );
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz65ToP3_default = convertXyz65ToP3;
+
+  // node_modules/culori/src/p3/definition.js
+  var definition8 = {
+    ...definition_default,
+    mode: "p3",
+    parse: ["display-p3"],
+    serialize: "display-p3",
+    fromMode: {
+      rgb: (color) => convertXyz65ToP3_default(convertRgbToXyz65_default(color)),
+      xyz65: convertXyz65ToP3_default
+    },
+    toMode: {
+      rgb: (color) => convertXyz65ToRgb_default(convertP3ToXyz65_default(color)),
+      xyz65: convertP3ToXyz65_default
+    }
+  };
+  var definition_default8 = definition8;
+
+  // node_modules/culori/src/rec2020/convertXyz65ToRec2020.js
+  var \u03B1 = 1.09929682680944;
+  var \u03B2 = 0.018053968510807;
+  var gamma = (v) => {
+    const abs = Math.abs(v);
+    if (abs > \u03B2) {
+      return (Math.sign(v) || 1) * (\u03B1 * Math.pow(abs, 0.45) - (\u03B1 - 1));
+    }
+    return 4.5 * v;
+  };
+  var convertXyz65ToRec2020 = ({ x, y, z, alpha }) => {
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = {
+      mode: "rec2020",
+      r: gamma(
+        x * 1.7166511879712683 - y * 0.3556707837763925 - 0.2533662813736599 * z
+      ),
+      g: gamma(
+        x * -0.6666843518324893 + y * 1.6164812366349395 + 0.0157685458139111 * z
+      ),
+      b: gamma(
+        x * 0.0176398574453108 - y * 0.0427706132578085 + 0.9421031212354739 * z
+      )
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz65ToRec2020_default = convertXyz65ToRec2020;
+
+  // node_modules/culori/src/rec2020/convertRec2020ToXyz65.js
+  var \u03B12 = 1.09929682680944;
+  var \u03B22 = 0.018053968510807;
+  var linearize = (v = 0) => {
+    let abs = Math.abs(v);
+    if (abs < \u03B22 * 4.5) {
+      return v / 4.5;
+    }
+    return (Math.sign(v) || 1) * Math.pow((abs + \u03B12 - 1) / \u03B12, 1 / 0.45);
+  };
+  var convertRec2020ToXyz65 = (rec20202) => {
+    let r2 = linearize(rec20202.r);
+    let g = linearize(rec20202.g);
+    let b = linearize(rec20202.b);
+    let res = {
+      mode: "xyz65",
+      x: 0.6369580483012911 * r2 + 0.1446169035862083 * g + 0.1688809751641721 * b,
+      y: 0.262700212011267 * r2 + 0.6779980715188708 * g + 0.059301716469862 * b,
+      z: 0 * r2 + 0.0280726930490874 * g + 1.0609850577107909 * b
+    };
+    if (rec20202.alpha !== void 0) {
+      res.alpha = rec20202.alpha;
+    }
+    return res;
+  };
+  var convertRec2020ToXyz65_default = convertRec2020ToXyz65;
+
+  // node_modules/culori/src/rec2020/definition.js
+  var definition9 = {
+    ...definition_default,
+    mode: "rec2020",
+    fromMode: {
+      xyz65: convertXyz65ToRec2020_default,
+      rgb: (color) => convertXyz65ToRec2020_default(convertRgbToXyz65_default(color))
+    },
+    toMode: {
+      xyz65: convertRec2020ToXyz65_default,
+      rgb: (color) => convertXyz65ToRgb_default(convertRec2020ToXyz65_default(color))
+    },
+    parse: ["rec2020"],
+    serialize: "rec2020"
+  };
+  var definition_default9 = definition9;
+
+  // node_modules/culori/src/xyz65/convertXyz65ToXyz50.js
+  var convertXyz65ToXyz50 = (xyz652) => {
+    let { x, y, z, alpha } = xyz652;
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = {
+      mode: "xyz50",
+      x: 1.0479298208405488 * x + 0.0229467933410191 * y - 0.0501922295431356 * z,
+      y: 0.0296278156881593 * x + 0.990434484573249 * y - 0.0170738250293851 * z,
+      z: -0.0092430581525912 * x + 0.0150551448965779 * y + 0.7518742899580008 * z
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz65ToXyz50_default = convertXyz65ToXyz50;
+
+  // node_modules/culori/src/xyz65/convertXyz50ToXyz65.js
+  var convertXyz50ToXyz65 = (xyz50) => {
+    let { x, y, z, alpha } = xyz50;
+    if (x === void 0) x = 0;
+    if (y === void 0) y = 0;
+    if (z === void 0) z = 0;
+    let res = {
+      mode: "xyz65",
+      x: 0.9554734527042182 * x - 0.0230985368742614 * y + 0.0632593086610217 * z,
+      y: -0.0283697069632081 * x + 1.0099954580058226 * y + 0.021041398966943 * z,
+      z: 0.0123140016883199 * x - 0.0205076964334779 * y + 1.3303659366080753 * z
+    };
+    if (alpha !== void 0) {
+      res.alpha = alpha;
+    }
+    return res;
+  };
+  var convertXyz50ToXyz65_default = convertXyz50ToXyz65;
+
+  // node_modules/culori/src/xyz65/definition.js
+  var definition10 = {
+    mode: "xyz65",
+    toMode: {
+      rgb: convertXyz65ToRgb_default,
+      xyz50: convertXyz65ToXyz50_default
+    },
+    fromMode: {
+      rgb: convertRgbToXyz65_default,
+      xyz50: convertXyz50ToXyz65_default
+    },
+    ranges: {
+      x: [0, 0.95],
+      y: [0, 1],
+      z: [0, 1.088]
+    },
+    channels: ["x", "y", "z", "alpha"],
+    parse: ["xyz", "xyz-d65"],
+    serialize: "xyz-d65",
+    interpolate: {
+      x: interpolatorLinear,
+      y: interpolatorLinear,
+      z: interpolatorLinear,
+      alpha: { use: interpolatorLinear, fixup: fixupAlpha }
+    }
+  };
+  var definition_default10 = definition10;
+
+  // node_modules/culori/src/round.js
+  var r = (value, precision) => Math.round(value * (precision = Math.pow(10, precision))) / precision;
+  var round = (precision = 4) => (value) => typeof value === "number" ? r(value, precision) : value;
+  var round_default = round;
+
+  // node_modules/culori/src/formatter.js
+  var twoDecimals = round_default(2);
+  var clamp = (value) => Math.max(0, Math.min(1, value || 0));
+  var fixup = (value) => Math.round(clamp(value) * 255);
+  var rgb = converter_default("rgb");
+  var hsl = converter_default("hsl");
+  var serializeRgb = (color) => {
+    if (color === void 0) {
+      return void 0;
+    }
+    let r2 = fixup(color.r);
+    let g = fixup(color.g);
+    let b = fixup(color.b);
+    if (color.alpha === void 0 || color.alpha === 1) {
+      return `rgb(${r2}, ${g}, ${b})`;
+    } else {
+      return `rgba(${r2}, ${g}, ${b}, ${twoDecimals(clamp(color.alpha))})`;
+    }
+  };
+  var formatCss = (c2) => {
+    const color = prepare_default(c2);
+    if (!color) {
+      return void 0;
+    }
+    const def = getMode(color.mode);
+    if (!def.serialize || typeof def.serialize === "string") {
+      let res = `color(${def.serialize || `--${color.mode}`} `;
+      def.channels.forEach((ch, i) => {
+        if (ch !== "alpha") {
+          res += (i ? " " : "") + (color[ch] !== void 0 ? color[ch] : "none");
+        }
+      });
+      if (color.alpha !== void 0 && color.alpha < 1) {
+        res += ` / ${color.alpha}`;
+      }
+      return res + ")";
+    }
+    if (typeof def.serialize === "function") {
+      return def.serialize(color);
+    }
+    return void 0;
+  };
+  var formatRgb = (c2) => serializeRgb(rgb(c2));
+
+  // node_modules/culori/src/clamp.js
+  var rgb2 = converter_default("rgb");
+  var fixup_rgb = (c2) => {
+    const res = {
+      mode: c2.mode,
+      r: Math.max(0, Math.min(c2.r !== void 0 ? c2.r : 0, 1)),
+      g: Math.max(0, Math.min(c2.g !== void 0 ? c2.g : 0, 1)),
+      b: Math.max(0, Math.min(c2.b !== void 0 ? c2.b : 0, 1))
+    };
+    if (c2.alpha !== void 0) {
+      res.alpha = c2.alpha;
+    }
+    return res;
+  };
+  var inrange_rgb = (c2) => {
+    return c2 !== void 0 && (c2.r === void 0 || c2.r >= 0 && c2.r <= 1) && (c2.g === void 0 || c2.g >= 0 && c2.g <= 1) && (c2.b === void 0 || c2.b >= 0 && c2.b <= 1);
+  };
+  function inGamut(mode = "rgb") {
+    const { gamut } = getMode(mode);
+    if (!gamut) {
+      return (color) => true;
+    }
+    const conv = converter_default(typeof gamut === "string" ? gamut : mode);
+    return (color) => inrange_rgb(conv(color));
+  }
+  function clampGamut(mode = "rgb") {
+    const { gamut } = getMode(mode);
+    if (!gamut) {
+      return (color) => prepare_default(color);
+    }
+    const destMode = typeof gamut === "string" ? gamut : mode;
+    const destConv = converter_default(destMode);
+    const inDestGamut = inGamut(destMode);
+    return (color) => {
+      const original = prepare_default(color);
+      if (!original) {
+        return void 0;
+      }
+      const converted = destConv(original);
+      if (inDestGamut(converted)) {
+        return original;
+      }
+      const clamped = fixup_rgb(converted);
+      if (original.mode === clamped.mode) {
+        return clamped;
+      }
+      return converter_default(original.mode)(clamped);
+    };
+  }
+  function toGamut(dest = "rgb", mode = "oklch", delta = differenceEuclidean("oklch"), jnd = 0.02) {
+    const destConv = converter_default(dest);
+    const destMode = getMode(dest);
+    if (!destMode.gamut) {
+      return (color) => destConv(color);
+    }
+    const inDestinationGamut = inGamut(dest);
+    const clipToGamut = clampGamut(dest);
+    const ucs = converter_default(mode);
+    const { ranges } = getMode(mode);
+    if (!ranges.l || !ranges.c) {
+      throw new Error("LCH-like space expected");
+    }
+    return (color) => {
+      color = prepare_default(color);
+      if (color === void 0) {
+        return void 0;
+      }
+      const candidate = { ...ucs(color) };
+      if (candidate.l === void 0) candidate.l = 0;
+      if (candidate.c === void 0) candidate.c = 0;
+      if (candidate.l >= ranges.l[1]) {
+        const res = { ...destMode.white, mode: dest };
+        if (color.alpha !== void 0) {
+          res.alpha = color.alpha;
+        }
+        return res;
+      }
+      if (candidate.l <= ranges.l[0]) {
+        const res = { ...destMode.black, mode: dest };
+        if (color.alpha !== void 0) {
+          res.alpha = color.alpha;
+        }
+        return res;
+      }
+      if (inDestinationGamut(candidate)) {
+        return destConv(candidate);
+      }
+      let start = 0;
+      let end = candidate.c;
+      let epsilon = (ranges.c[1] - ranges.c[0]) / 4e3;
+      let clipped = clipToGamut(candidate);
+      while (end - start > epsilon) {
+        candidate.c = (start + end) * 0.5;
+        clipped = clipToGamut(candidate);
+        if (inDestinationGamut(candidate) || delta && jnd > 0 && delta(candidate, clipped) <= jnd) {
+          start = candidate.c;
+        } else {
+          end = candidate.c;
+        }
+      }
+      return destConv(inDestinationGamut(candidate) ? candidate : clipped);
+    };
+  }
+
+  // node_modules/nanostores/clean-stores/index.js
+  var clean = Symbol("clean");
+
+  // node_modules/nanostores/atom/index.js
+  var listenerQueue = [];
+  var lqIndex = 0;
+  var QUEUE_ITEMS_PER_LISTENER = 4;
+  var epoch = 0;
+  var atom = (initialValue) => {
+    let listeners = [];
+    let $atom = {
+      get() {
+        if (!$atom.lc) {
+          $atom.listen(() => {
+          })();
+        }
+        return $atom.value;
+      },
+      lc: 0,
+      listen(listener) {
+        $atom.lc = listeners.push(listener);
+        return () => {
+          for (let i = lqIndex + QUEUE_ITEMS_PER_LISTENER; i < listenerQueue.length; ) {
+            if (listenerQueue[i] === listener) {
+              listenerQueue.splice(i, QUEUE_ITEMS_PER_LISTENER);
+            } else {
+              i += QUEUE_ITEMS_PER_LISTENER;
+            }
+          }
+          let index = listeners.indexOf(listener);
+          if (~index) {
+            listeners.splice(index, 1);
+            if (!--$atom.lc) $atom.off();
+          }
+        };
+      },
+      notify(oldValue, changedKey) {
+        epoch++;
+        let runListenerQueue = !listenerQueue.length;
+        for (let listener of listeners) {
+          listenerQueue.push(listener, $atom.value, oldValue, changedKey);
+        }
+        if (runListenerQueue) {
+          for (lqIndex = 0; lqIndex < listenerQueue.length; lqIndex += QUEUE_ITEMS_PER_LISTENER) {
+            listenerQueue[lqIndex](
+              listenerQueue[lqIndex + 1],
+              listenerQueue[lqIndex + 2],
+              listenerQueue[lqIndex + 3]
+            );
+          }
+          listenerQueue.length = 0;
+        }
+      },
+      /* It will be called on last listener unsubscribing.
+         We will redefine it in onMount and onStop. */
+      off() {
+      },
+      set(newValue) {
+        let oldValue = $atom.value;
+        if (oldValue !== newValue) {
+          $atom.value = newValue;
+          $atom.notify(oldValue);
+        }
+      },
+      subscribe(listener) {
+        let unbind = $atom.listen(listener);
+        listener($atom.value);
+        return unbind;
+      },
+      value: initialValue
+    };
+    if (true) {
+      $atom[clean] = () => {
+        listeners = [];
+        $atom.lc = 0;
+        $atom.off();
+      };
+    }
+    return $atom;
+  };
+
+  // node_modules/nanostores/map/index.js
+  var map = (initial = {}) => {
+    let $map = atom(initial);
+    $map.setKey = function(key, value) {
+      let oldMap = $map.value;
+      if (typeof value === "undefined" && key in $map.value) {
+        $map.value = { ...$map.value };
+        delete $map.value[key];
+        $map.notify(oldMap, key);
+      } else if ($map.value[key] !== value) {
+        $map.value = {
+          ...$map.value,
+          [key]: value
+        };
+        $map.notify(oldMap, key);
+      }
+    };
+    return $map;
+  };
+
+  // stores/support.ts
+  var support = map({
+    p3: false,
+    rec2020: false
+  });
+  if (typeof window !== "undefined") {
+    if (CSS.supports("color", "color(display-p3 1 1 1)")) {
+      let mediaP3 = window.matchMedia("(color-gamut:p3)");
+      let media2020 = window.matchMedia("(color-gamut:rec2020)");
+      support.set({
+        p3: mediaP3.matches,
+        rec2020: media2020.matches
+      });
+      mediaP3.addEventListener("change", () => {
+        support.setKey("p3", mediaP3.matches);
+      });
+      media2020.addEventListener("change", () => {
+        support.setKey("rec2020", media2020.matches);
+      });
+    }
+  }
+
+  // lib/colors.ts
+  var rec2020 = useMode(definition_default9);
+  var oklch = useMode(definition_default7);
+  var oklab = useMode(definition_default6);
+  var xyz65 = useMode(definition_default10);
+  var rgb3 = useMode(definition_default);
+  var lch = useMode(definition_default4);
+  var hsl2 = useMode(definition_default2);
+  var lab = useMode(definition_default3);
+  var lrgb = useMode(definition_default5);
+  var p3 = useMode(definition_default8);
+  var inP3 = inGamut("p3");
+  var inRec2020 = inGamut("rec2020");
+  var toTarget;
+  if (LCH) {
+    toTarget = lch;
+  } else {
+    toTarget = oklch;
+  }
+  var canvasFormat = formatRgb;
+  function formatP3Css(c2) {
+    return formatCss(p3(c2));
+  }
+  support.subscribe((value) => {
+    canvasFormat = value.p3 ? formatP3Css : formatRgb;
+  });
+  var toRgb = toGamut("rgb", COLOR_FN);
+  var getProxyColor;
+  if (LCH) {
+    getProxyColor = xyz65;
+  } else {
+    getProxyColor = rgb3;
+  }
+
+  // lib/workers.ts
+  var TOTAL_WORKERS = navigator.hardwareConcurrency;
+
+  // main.ts
+  function initPicker(options) {
+  }
+  window.OKLCHPicker = { initPicker };
+})();
