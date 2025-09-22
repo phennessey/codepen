@@ -1,6 +1,34 @@
-// attempt 4
+// attempt 5
 "use strict";
-(() => {
+var OKLCH = (() => {
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+  // main.ts
+  var main_exports = {};
+  __export(main_exports, {
+    build: () => build2,
+    canvasFormat: () => canvasFormat2,
+    fastFormat: () => fastFormat2,
+    parse: () => parse3,
+    toRgb: () => toRgb2
+  });
+
   // node_modules/culori/src/rgb/parseNumber.js
   var parseNumber = (color, len) => {
     if (typeof color !== "number") return;
@@ -2007,11 +2035,6 @@
   var lab = useMode(definition_default3);
   var lrgb = useMode(definition_default5);
   var p3 = useMode(definition_default8);
-  var COLOR_SPACE_GAP = 1e-4;
-  function inRGB(color) {
-    let check = rgb3(color);
-    return check.r >= -COLOR_SPACE_GAP && check.r <= 1 + COLOR_SPACE_GAP && check.g >= -COLOR_SPACE_GAP && check.g <= 1 + COLOR_SPACE_GAP && check.b >= -COLOR_SPACE_GAP && check.b <= 1 + COLOR_SPACE_GAP;
-  }
   var inP3 = inGamut("p3");
   var inRec2020 = inGamut("rec2020");
   function build(l, c2, h, alpha = 1) {
@@ -2024,232 +2047,46 @@
     toTarget = oklch;
   }
   var canvasFormat = formatRgb;
+  function fastFormat(color) {
+    if (color.mode === COLOR_FN) {
+      return formatLch(color);
+    } else {
+      return formatRgb(color);
+    }
+  }
   function formatP3Css(c2) {
     return formatCss(p3(c2));
   }
   support.subscribe((value) => {
     canvasFormat = value.p3 ? formatP3Css : formatRgb;
   });
+  function parse2(value) {
+    return parse_default(value.trim());
+  }
   var toRgb = toGamut("rgb", COLOR_FN);
-  var Space = {
-    Out: 3,
-    P3: 1,
-    Rec2020: 2,
-    sRGB: 0
-  };
+  function formatLch(color) {
+    let { alpha, c: c2, h, l } = color;
+    let postfix = "";
+    if (typeof alpha !== "undefined" && alpha < 1) {
+      postfix = ` / ${clean2(100 * alpha)}%`;
+    }
+    return `${COLOR_FN}(${clean2(l / L_MAX, 4)} ${c2} ${h}${postfix})`;
+  }
+  function clean2(value, precision = 2) {
+    return Math.round(parseFloat((value * 10 ** precision).toFixed(precision))) / 10 ** precision;
+  }
   var getProxyColor;
   if (LCH) {
     getProxyColor = xyz65;
   } else {
     getProxyColor = rgb3;
   }
-  function generateGetPixel(getColor2, showP32, showRec20202, p3Support2) {
-    if (showP32 && showRec20202) {
-      if (p3Support2) {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorP3 = p3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorP3.r),
-            Math.floor(255 * colorP3.g),
-            Math.floor(255 * colorP3.b)
-          ];
-          if (inRGB(proxyColor)) {
-            pixel[0] = Space.sRGB;
-          } else if (inP3(colorP3)) {
-            pixel[0] = Space.P3;
-          } else if (inRec2020(proxyColor)) {
-            pixel[0] = Space.Rec2020;
-          }
-          return pixel;
-        };
-      } else {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorSRGB = rgb3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorSRGB.r),
-            Math.floor(255 * colorSRGB.g),
-            Math.floor(255 * colorSRGB.b)
-          ];
-          if (inRGB(colorSRGB)) {
-            pixel[0] = Space.sRGB;
-          } else if (inP3(proxyColor)) {
-            pixel[0] = Space.P3;
-          } else if (inRec2020(proxyColor)) {
-            pixel[0] = Space.Rec2020;
-          }
-          return pixel;
-        };
-      }
-    } else if (showP32 && !showRec20202) {
-      if (p3Support2) {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorP3 = p3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorP3.r),
-            Math.floor(255 * colorP3.g),
-            Math.floor(255 * colorP3.b)
-          ];
-          if (inRGB(proxyColor)) {
-            pixel[0] = Space.sRGB;
-          } else if (inP3(colorP3)) {
-            pixel[0] = Space.P3;
-          }
-          return pixel;
-        };
-      } else {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorSRGB = rgb3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorSRGB.r),
-            Math.floor(255 * colorSRGB.g),
-            Math.floor(255 * colorSRGB.b)
-          ];
-          if (inRGB(colorSRGB)) {
-            pixel[0] = Space.sRGB;
-          } else if (inP3(proxyColor)) {
-            pixel[0] = Space.P3;
-          }
-          return pixel;
-        };
-      }
-    } else if (!showP32 && showRec20202) {
-      if (p3Support2) {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorP3 = p3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorP3.r),
-            Math.floor(255 * colorP3.g),
-            Math.floor(255 * colorP3.b)
-          ];
-          if (inRGB(proxyColor)) {
-            pixel[0] = Space.sRGB;
-          } else if (inRec2020(proxyColor)) {
-            pixel[0] = Space.Rec2020;
-          }
-          return pixel;
-        };
-      } else {
-        return (x, y) => {
-          let color = getColor2(x, y);
-          let proxyColor = getProxyColor(color);
-          let colorSRGB = rgb3(proxyColor);
-          let pixel = [
-            Space.Out,
-            Math.floor(255 * colorSRGB.r),
-            Math.floor(255 * colorSRGB.g),
-            Math.floor(255 * colorSRGB.b)
-          ];
-          if (inRGB(colorSRGB)) {
-            pixel[0] = Space.sRGB;
-          } else if (inRec2020(proxyColor)) {
-            pixel[0] = Space.Rec2020;
-          }
-          return pixel;
-        };
-      }
-    } else if (p3Support2) {
-      return (x, y) => {
-        let color = getColor2(x, y);
-        let proxyColor = getProxyColor(color);
-        let colorP3 = p3(proxyColor);
-        let pixel = [
-          Space.Out,
-          Math.floor(255 * colorP3.r),
-          Math.floor(255 * colorP3.g),
-          Math.floor(255 * colorP3.b)
-        ];
-        if (inRGB(proxyColor)) {
-          pixel[0] = Space.sRGB;
-        }
-        return pixel;
-      };
-    } else {
-      return (x, y) => {
-        let color = getColor2(x, y);
-        let colorSRGB = rgb3(color);
-        let pixel = [
-          Space.Out,
-          Math.floor(255 * colorSRGB.r),
-          Math.floor(255 * colorSRGB.g),
-          Math.floor(255 * colorSRGB.b)
-        ];
-        if (inRGB(colorSRGB)) {
-          pixel[0] = Space.sRGB;
-        }
-        return pixel;
-      };
-    }
-  }
-
-  // lib/paint.ts
-  function paintPixel(pixels, x, y, pixel) {
-    let pos = 4 * ((pixels.height - y) * pixels.width + x);
-    pixels.data[pos] = pixel[1];
-    pixels.data[pos + 1] = pixel[2];
-    pixels.data[pos + 2] = pixel[3];
-    pixels.data[pos + 3] = 255;
-  }
 
   // main.ts
-  var canvas = document.querySelector("#picker");
-  var ctx = canvas.getContext("2d");
-  var width = canvas.width = 300;
-  var height = canvas.height = 300;
-  var lightness = 0.5;
-  var showP3 = true;
-  var showRec2020 = false;
-  var p3Support = true;
-  function getColor(x, y) {
-    const c2 = x;
-    const h = y * 360;
-    return build(lightness, c2, h);
-  }
-  var getPixel = generateGetPixel(getColor, showP3, showRec2020, p3Support);
-  function render() {
-    const image = ctx.createImageData(width, height);
-    for (let x = 0; x < width; x++) {
-      for (let y = 0; y < height; y++) {
-        const px = getPixel(x / width, y / height);
-        let pixelColor = [0, px[1], px[2], px[3]];
-        if (px[0] === Space.Out) {
-          const gray = 128;
-          pixelColor = [Space.Out, gray, gray, gray];
-        }
-        paintPixel(image, x, y, [px[0], pixelColor[1], pixelColor[2], pixelColor[3]]);
-      }
-    }
-    ctx.putImageData(image, 0, 0);
-  }
-  var slider = document.querySelector("#lightness");
-  slider.addEventListener("input", (e3) => {
-    lightness = parseFloat(slider.value);
-    render();
-  });
-  render();
-  canvas.addEventListener("click", (e3) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = (e3.clientX - rect.left) / rect.width;
-    const y = (e3.clientY - rect.top) / rect.height;
-    const color = getColor(x, y);
-    console.log("Selected OKLCH color:", color, "CSS:", canvasFormat(color));
-  });
-  window.OKLCH = {
-    build,
-    toRgb
-  };
+  var build2 = build;
+  var toRgb2 = toRgb;
+  var canvasFormat2 = canvasFormat;
+  var parse3 = parse2;
+  var fastFormat2 = fastFormat;
+  return __toCommonJS(main_exports);
 })();
