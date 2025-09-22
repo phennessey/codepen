@@ -2033,7 +2033,21 @@
   var TOTAL_WORKERS = navigator.hardwareConcurrency;
 
   // main.ts
-  function initPicker(options) {
+  function setupPicker() {
+    if (typeof window.domInit === "function") {
+      window.domInit({
+        canvasId: "chromaCanvas",
+        cursorId: "cursor",
+        previewId: "preview",
+        lightnessSliderId: "lightnessSlider",
+        gamutSelectId: "gamutSelect"
+      });
+    } else {
+      console.warn("OKLCH Picker internal init function not found.");
+    }
   }
-  window.OKLCHPicker = { initPicker };
+  setupPicker();
+  window.OKLCHPicker = {
+    initPicker: setupPicker
+  };
 })();
