@@ -4,6 +4,10 @@
  * Canvas drawing, SVG overlay construction, handle & swatch DOM management,
  * guide lines, mesh edges.  Reads from a shared state object (`S`) passed
  * at init time but never attaches event listeners — that's main.js's job.
+ *
+ * Exports
+ * -------
+ *   createPicker(state)          → DOM refs + drawing API
  */
 
 import {
@@ -278,8 +282,8 @@ export function createPicker(S, cfg) {
           drawGuideForColor(S.colors[S.hoveredHandle], dimStroke);
         }
 
-        if (S.modKeys.shift && S.modKeys.meta && (S.mouseInPicker || (S.hueConvergeDrag && S.hueConvergeDrag.lockedH != null))) {
-          const targetH = (S.hueConvergeDrag && S.hueConvergeDrag.lockedH != null) ? S.hueConvergeDrag.lockedH : S.mouseHueAngle;
+        if (S.modKeys.shift && S.modKeys.meta && (S.mouseInPicker || S.hueConvergeDrag?.lockedH != null)) {
+          const targetH = S.hueConvergeDrag?.lockedH ?? S.mouseHueAngle;
           const a = targetH * TAU;
           setAttrs(discHueLine, {
             stroke, 'stroke-linecap': 'round', 'stroke-opacity': '1', opacity: '1',
@@ -392,6 +396,10 @@ export function createPicker(S, cfg) {
     container.classList.toggle('light', S.colors[index].L > MIDDLE_GRAY);
   }
 
+  /**
+   * Create a swatch DOM node and insert it before the add button.
+   * Returns the container element (main.js wires up events on it).
+   */
   function createSwatchDOM(index) {
     const { p3Css, p3Str, srgbCss, hex, outOfSRGB } = computeP3AndSRGB(S.colors[index]);
     const container = document.createElement('div');
@@ -410,7 +418,7 @@ export function createPicker(S, cfg) {
           <div class="swatch-readout srgb">${hex}</div>
         </div>
         <span class="icon gamut-warning">
-          <svg viewBox="0 0 18 16" fill="currentColor">
+          <svg viewBox="0 -1 18 18" fill="currentColor">
             <path d="M17.8,13.6L10.4.8c-.7-1.1-2.2-1.1-2.9,0L.2,13.6c-.6,1.1.2,2.4,1.5,2.4h14.7c1.3,0,2.1-1.3,1.5-2.4ZM7.8,4.4c0-.7.6-1.2,1.2-1.2s1.2.6,1.2,1.2v5.1c0,.7-.6,1.2-1.2,1.2s-1.2-.6-1.2-1.2v-5.1ZM9,14.8c-.8,0-1.4-.6-1.4-1.4s.7-1.4,1.4-1.4,1.4.6,1.4,1.4-.6,1.4-1.4,1.4Z"/>
           </svg>
         </span>
