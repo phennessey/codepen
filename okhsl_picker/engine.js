@@ -263,7 +263,6 @@ export function createPicker(S, cfg) {
   // Hit areas (transparent shapes for pointer events)
   function makeHitArea(parent, el) {
     el.style.pointerEvents = 'auto';
-    el.style.cursor = 'crosshair';
     parent.appendChild(el);
     return el;
   }
