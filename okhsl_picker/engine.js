@@ -241,7 +241,7 @@ export function createPicker(S, cfg) {
   // ── DOM lookups ──────────────────────────────────────────────────
   const wheelCanvas     = document.getElementById('wheel');
   const lightbarCanvas  = document.getElementById('lightbar');
-  const leftOverlay     = document.getElementById('left-overlay');
+  const discOverlay     = document.getElementById('disc-overlay');
   const lightbarOverlay = document.getElementById('lightbar-overlay');
   const pickerWrap      = document.querySelector('.picker-wrap');
   const swatches        = document.querySelector('.swatches');
@@ -257,7 +257,7 @@ export function createPicker(S, cfg) {
   initCanvas(lightbarCanvas, LB_WIDTH, LB_HEIGHT);
 
   function initOverlay(svg, w, h) { setAttrs(svg, { width: w, height: h }); }
-  initOverlay(leftOverlay, DISC_SIZE, DISC_SIZE);
+  initOverlay(discOverlay, DISC_SIZE, DISC_SIZE);
   initOverlay(lightbarOverlay, LB_WIDTH, LB_HEIGHT);
 
   // Hit areas (transparent shapes for pointer events)
@@ -266,14 +266,14 @@ export function createPicker(S, cfg) {
     parent.appendChild(el);
     return el;
   }
-  makeHitArea(leftOverlay, svgEl('circle', { cx: DISC_R, cy: DISC_R, r: DISC_R, fill: 'transparent' }));
+  makeHitArea(discOverlay, svgEl('circle', { cx: DISC_R, cy: DISC_R, r: DISC_R, fill: 'transparent' }));
   makeHitArea(lightbarOverlay, svgEl('rect', { x: 0, y: 0, width: LB_WIDTH, height: LB_HEIGHT, fill: 'transparent' }));
 
   // ── SVG overlay elements ─────────────────────────────────────────
   const GamutBoundary = svgEl('path', {
     id: 'gamut-boundary', fill: 'none', stroke: '#000', 'stroke-width': '0.5', 'stroke-linejoin': 'round',
   });
-  leftOverlay.appendChild(GamutBoundary);
+  discOverlay.appendChild(GamutBoundary);
 
   const discHueLine = svgEl('line', {
     fill: 'none', 'stroke-width': '1', 'stroke-opacity': '0.3', 'pointer-events': 'none', opacity: '0',
@@ -281,13 +281,13 @@ export function createPicker(S, cfg) {
   const discChromaPath = svgEl('path', {
     fill: 'none', 'stroke-width': '1', 'stroke-opacity': '0.3', 'pointer-events': 'none', opacity: '0',
   });
-  leftOverlay.appendChild(discHueLine);
-  leftOverlay.appendChild(discChromaPath);
+  discOverlay.appendChild(discHueLine);
+  discOverlay.appendChild(discChromaPath);
 
   const discMesh         = svgEl('g', { 'pointer-events': 'none' });
   const discRadialGuides = svgEl('g', { 'pointer-events': 'none' });
-  leftOverlay.appendChild(discMesh);
-  leftOverlay.appendChild(discRadialGuides);
+  discOverlay.appendChild(discMesh);
+  discOverlay.appendChild(discRadialGuides);
 
   // ── Render cache ─────────────────────────────────────────────────
   let disc_img = null, disc_L = -1;
@@ -316,7 +316,7 @@ export function createPicker(S, cfg) {
   }
 
   function createHandle(i) {
-    handles[i] = createHandleG(leftOverlay, 'disc-handle', HANDLE_HTML, i);
+    handles[i] = createHandleG(discOverlay, 'disc-handle', HANDLE_HTML, i);
     return handles[i];
   }
 
@@ -690,7 +690,7 @@ export function createPicker(S, cfg) {
     updateDiscGuides();
     updateMesh();
     const lightBg = S.activeIndex !== -1 && S.colors[S.activeIndex].L > MIDDLE_GRAY;
-    leftOverlay.classList.toggle('light-color', lightBg);
+    discOverlay.classList.toggle('light-color', lightBg);
     lightbarOverlay.classList.toggle('light-color', lightBg);
   }
 
@@ -699,7 +699,7 @@ export function createPicker(S, cfg) {
   return {
     DISC_R, HANDLE_OUTER,
     handlePos, yToToeL, toeLToY,
-    els: { wheelCanvas, lightbarCanvas, leftOverlay, lightbarOverlay, pickerWrap, swatches, addSwatchBtn },
+    els: { wheelCanvas, lightbarCanvas, discOverlay, lightbarOverlay, pickerWrap, swatches, addSwatchBtn },
     handles, lightHandles,
     render, invalidateCache, updateSwatch, updateDiscGuides, updateMesh,
     createHandle, createLightHandle, setHandleActive, reindex, swatchEl,
