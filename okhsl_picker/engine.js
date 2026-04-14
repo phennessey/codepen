@@ -93,6 +93,9 @@ export function hueDiff(a, b) { return ((a - b + 1.5) % 1) - 0.5; }
 export function computeP3AndSRGB(color) {
   toOKLab(color.h, color.s, toe(color.L));
   convert(_lab, OKLab, DisplayP3, _p3);
+  _p3[0] = Math.max(0, _p3[0]);
+  _p3[1] = Math.max(0, _p3[1]);
+  _p3[2] = Math.max(0, _p3[2]);
   const p3Css = `color(display-p3 ${_p3[0].toFixed(4)} ${_p3[1].toFixed(4)} ${_p3[2].toFixed(4)})`;
   const p3Str = `${_p3[0].toFixed(3)} ${_p3[1].toFixed(3)} ${_p3[2].toFixed(3)}`;
   convert(_lab, OKLab, sRGB, _rgb);
