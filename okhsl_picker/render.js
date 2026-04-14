@@ -19,8 +19,7 @@ import {
   polarPath,
   renderDiscPixels, renderLightbarPixels,
   gamutBoundaryPath, gamutBoundaryStyle,
-  neutralP3,
-  delaunay,
+  neutralP3
 } from './color.js';
 
 const ns = 'http://www.w3.org/2000/svg';
@@ -328,6 +327,59 @@ export function createPicker(S, cfg) {
   }
 
   // ── Mesh edges ───────────────────────────────────────────────────
+
+  function delaunay(pts) {
+    const M = 1e4;
+    const superTri = [{ x: -M, y: -M }, { x: M * 3, y: -M }, { x: -M, y: M * 3 }];
+    let triangles = [{ a: 0, b: 1, c: 2 }];
+    const allPts = [...superTri, ...pts];
+  
+    function inCircum(tri, p) {
+      const a = allPts[tri.a], b = allPts[tri.b], c = allPts[tri.c];
+      const ax = a.x - p.x, ay = a.y - p.y, al = ax * ax + ay * ay;
+      const bx = b.x - p.x, by = b.y - p.y, bl = bx * bx + by * by;
+      const cx = c.x - p.x, cy = c.y - p.y, cl = cx * cx + cy * cy;
+      const det = ax * (by * cl - cy * bl) - ay * (bx * cl - cx * bl) + al * (bx * cy - cx * by);
+      const cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+      return cross > 0 ? det > 0 : det < 0;
+    }
+  
+    for (let pi = 3; pi < allPts.length; pi++) {
+      const p = allPts[pi];
+      const bad = [], poly = [];
+  
+      for (const tri of triangles) {
+        if (inCircum(tri, p)) bad.push(tri);
+      }
+  
+      for (const tri of bad) {
+        const edges = [[tri.a, tri.b], [tri.b, tri.c], [tri.c, tri.a]];
+        for (const [ea, eb] of edges) {
+          const shared = bad.some(other =>
+            other !== tri &&
+            (other.a === ea || other.b === ea || other.c === ea) &&
+            (other.a === eb || other.b === eb || other.c === eb)
+          );
+          if (!shared) poly.push([ea, eb]);
+        }
+      }
+  
+      triangles = triangles.filter(t => !bad.includes(t));
+      for (const [ea, eb] of poly) {
+        triangles.push({ a: ea, b: eb, c: pi });
+      }
+    }
+  
+    const edgeSet = new Set();
+    for (const tri of triangles) {
+      if (tri.a < 3 || tri.b < 3 || tri.c < 3) continue;
+      const a = tri.a - 3, b = tri.b - 3, c = tri.c - 3;
+      edgeSet.add(a < b ? `${a},${b}` : `${b},${a}`);
+      edgeSet.add(b < c ? `${b},${c}` : `${c},${b}`);
+      edgeSet.add(a < c ? `${a},${c}` : `${c},${a}`);
+    }
+    return [...edgeSet].map(e => e.split(',').map(Number));
+  }
 
   function computeFrozenEdges() {
     const indices = [...S.multiSelect];
