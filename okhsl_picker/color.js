@@ -8,6 +8,7 @@
 import {
   convert,
   OKHSLToOKLab,
+  OKLabToOKHSL,
   OKLab,
   OKLCH,
   DisplayP3,
@@ -52,6 +53,14 @@ const _rgb = [0, 0, 0];
 export function toOKLab(h, s, lr, out = _lab) {
   OKHSLToOKLab([h * 360, s, lr], DisplayP3Gamut, out);
   return out;
+}
+
+export function srgbToOKHSL(r, g, b) {
+  const lab = [0, 0, 0];
+  convert([r, g, b], sRGB, OKLab, lab);
+  const hsl = [0, 0, 0];
+  OKLabToOKHSL(lab, DisplayP3Gamut, hsl);
+  return { h: hsl[0] / 360, s: hsl[1], L: toeInv(hsl[2]) };
 }
 
 /** Binary-search for the OKHSL saturation that yields a given OKLCH chroma. */
