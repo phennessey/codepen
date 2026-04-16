@@ -313,7 +313,6 @@ export function createPicker(S, cfg) {
     g.classList.add('handle', cls);
     g.innerHTML = html;
     g.dataset.index = index;
-    if (index === S.activeIndex) g.classList.add('active');
     parent.appendChild(g);
     return g;
   }
