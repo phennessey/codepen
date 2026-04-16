@@ -213,7 +213,9 @@ export const idxOf = el => parseInt(el.dataset.index);
 // `S` is the shared mutable state object owned by main.js.
 // `cfg` supplies layout constants: DISC_SIZE, DISC_LB_GAP, LB_WIDTH,
 //   LB_HEIGHT, HANDLE_R, HANDLE_SW, MIDDLE_GRAY.
-// This function builds all DOM, returns element refs + a drawing API.
+// This function builds canvas/overlay DOM, returns element refs +
+// a drawing API. Application-level UI (swatches, mesh, background)
+// is handled by main.js.
 // ══════════════════════════════════════════════════════════════════════
 
 export function createPicker(S, cfg) {
@@ -222,7 +224,7 @@ export function createPicker(S, cfg) {
   const DISC_R       = DISC_SIZE / 2;
   const HANDLE_OUTER = HANDLE_R + HANDLE_SW / 2;
 
-  // ── Geometry helpers (use layout constants) ───────────────────────
+  // ── Geometry helpers ──────────────────────────────────────────────
 
   function handlePos(col) {
     const a = col.h * TAU;
@@ -287,9 +289,7 @@ export function createPicker(S, cfg) {
   discOverlay.appendChild(discHueLine);
   discOverlay.appendChild(discChromaPath);
 
-  const discMesh         = svgEl('g', { 'pointer-events': 'none' });
   const discRadialGuides = svgEl('g', { 'pointer-events': 'none' });
-  discOverlay.appendChild(discMesh);
   discOverlay.appendChild(discRadialGuides);
 
   // ── Render cache ─────────────────────────────────────────────────
@@ -329,12 +329,6 @@ export function createPicker(S, cfg) {
   }
 
   function setHandleActive(el, on) { el?.classList.toggle('active', on); }
-
-  function reindex() {
-    handles.forEach((h, i) => h.dataset.index = i);
-    lightHandles.forEach((h, i) => h.dataset.index = i);
-    swatches.querySelectorAll('.swatch-container').forEach((c, i) => c.dataset.index = i);
-  }
 
   // ── Disc drawing ─────────────────────────────────────────────────
   function drawDisc() {
@@ -494,96 +488,6 @@ export function createPicker(S, cfg) {
     return null;
   }
 
-  // ── Mesh edges ───────────────────────────────────────────────────
-
-  function delaunay(pts) {
-    const M = 1e4;
-    const superTri = [{ x: -M, y: -M }, { x: M * 3, y: -M }, { x: -M, y: M * 3 }];
-    let triangles = [{ a: 0, b: 1, c: 2 }];
-    const allPts = [...superTri, ...pts];
-
-    function inCircum(tri, p) {
-      const a = allPts[tri.a], b = allPts[tri.b], c = allPts[tri.c];
-      const ax = a.x - p.x, ay = a.y - p.y, al = ax * ax + ay * ay;
-      const bx = b.x - p.x, by = b.y - p.y, bl = bx * bx + by * by;
-      const cx = c.x - p.x, cy = c.y - p.y, cl = cx * cx + cy * cy;
-      const det = ax * (by * cl - cy * bl) - ay * (bx * cl - cx * bl) + al * (bx * cy - cx * by);
-      const cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
-      return cross > 0 ? det > 0 : det < 0;
-    }
-
-    for (let pi = 3; pi < allPts.length; pi++) {
-      const p = allPts[pi];
-      const bad = [], poly = [];
-
-      for (const tri of triangles) {
-        if (inCircum(tri, p)) bad.push(tri);
-      }
-
-      for (const tri of bad) {
-        const edges = [[tri.a, tri.b], [tri.b, tri.c], [tri.c, tri.a]];
-        for (const [ea, eb] of edges) {
-          const shared = bad.some(other =>
-            other !== tri &&
-            (other.a === ea || other.b === ea || other.c === ea) &&
-            (other.a === eb || other.b === eb || other.c === eb)
-          );
-          if (!shared) poly.push([ea, eb]);
-        }
-      }
-
-      triangles = triangles.filter(t => !bad.includes(t));
-      for (const [ea, eb] of poly) {
-        triangles.push({ a: ea, b: eb, c: pi });
-      }
-    }
-
-    const edgeSet = new Set();
-    for (const tri of triangles) {
-      if (tri.a < 3 || tri.b < 3 || tri.c < 3) continue;
-      const a = tri.a - 3, b = tri.b - 3, c = tri.c - 3;
-      edgeSet.add(a < b ? `${a},${b}` : `${b},${a}`);
-      edgeSet.add(b < c ? `${b},${c}` : `${c},${b}`);
-      edgeSet.add(a < c ? `${a},${c}` : `${c},${a}`);
-    }
-    return [...edgeSet].map(e => e.split(',').map(Number));
-  }
-
-  function computeFrozenEdges() {
-    const indices = [...S.multiSelect];
-    const pts = indices.map(i => handlePos(S.colors[i]));
-    let localEdges;
-    if (pts.length < 2)      { S.frozenEdges = []; return; }
-    if (pts.length === 2)      localEdges = [[0, 1]];
-    else if (pts.length === 3) localEdges = [[0, 1], [1, 2], [0, 2]];
-    else                       localEdges = delaunay(pts);
-    S.frozenEdges = localEdges.map(([a, b]) => [indices[a], indices[b]]);
-  }
-
-  function renderMeshEdges(edges, stroke) {
-    for (const [i, j] of edges) {
-      const a = handlePos(S.colors[i]);
-      const b = handlePos(S.colors[j]);
-      const dx = b.x - a.x, dy = b.y - a.y;
-      const len = Math.hypot(dx, dy);
-      if (len < HANDLE_OUTER * 2) continue;
-      const ux = dx / len, uy = dy / len;
-      discMesh.appendChild(svgEl('line', {
-        x1: (a.x + ux * HANDLE_OUTER).toFixed(2), y1: (a.y + uy * HANDLE_OUTER).toFixed(2),
-        x2: (b.x - ux * HANDLE_OUTER).toFixed(2), y2: (b.y - uy * HANDLE_OUTER).toFixed(2),
-        stroke, 'stroke-width': '1',
-      }));
-    }
-  }
-
-  function updateMesh() {
-    discMesh.innerHTML = '';
-    if (!S.isMultiMode() || !S.frozenEdges || S.modKeys.shift || S.modKeys.meta) return;
-    const refIdx = S.multiSelect.has(S.activeIndex) ? S.activeIndex : [...S.multiSelect][0];
-    const stroke = S.colors[refIdx]?.L > MIDDLE_GRAY ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)';
-    renderMeshEdges(S.frozenEdges, stroke);
-  }
-
   // ── Handle positioning ───────────────────────────────────────────
 
   function updateAllDiscHandles() {
@@ -600,81 +504,10 @@ export function createPicker(S, cfg) {
     });
   }
 
-  // ── Swatch DOM ───────────────────────────────────────────────────
-
-  function swatchEl(i) { return swatches.querySelector(`[data-index="${i}"]`); }
-
-  function updateSwatch(index) {
-    const container = swatchEl(index);
-    if (!container) return;
-    const { p3Css, p3Str, srgbCss, hex, outOfSRGB } = computeP3AndSRGB(S.colors[index]);
-    container.querySelector('.color-swatch.p3').style.background   = p3Css;
-    container.querySelector('.color-swatch.srgb').style.background = srgbCss;
-    container.querySelector('.swatch-readout.p3').textContent       = p3Str;
-    container.querySelector('.swatch-readout.srgb').textContent     = hex;
-    container.classList.toggle('out-of-srgb', outOfSRGB);
-    container.classList.toggle('light', S.colors[index].L > MIDDLE_GRAY);
-  }
-
-  function createSwatchDOM(index) {
-    const { p3Css, p3Str, srgbCss, hex, outOfSRGB } = computeP3AndSRGB(S.colors[index]);
-    const container = document.createElement('div');
-    container.className     = 'swatch-container';
-    container.dataset.index = index;
-    if (outOfSRGB)                     container.classList.add('out-of-srgb');
-    if (S.colors[index].L > 0.5)      container.classList.add('light');
-    if (index === S.activeIndex)       container.classList.add('selected');
-
-    container.innerHTML = `
-      <div class="swatch-inner">
-        <div class="color-swatch p3" style="background:${p3Css}">
-          <div class="swatch-readout p3">${p3Str}</div>
-        </div>
-        <div class="color-swatch srgb" style="background:${srgbCss}">
-          <div class="swatch-readout srgb">${hex}</div>
-        </div>
-        <span class="icon gamut-warning">
-          <svg viewBox="0 0 18 16" fill="currentColor">
-            <path d="M17.8,13.6L10.4.8c-.7-1.1-2.2-1.1-2.9,0L.2,13.6c-.6,1.1.2,2.4,1.5,2.4h14.7c1.3,0,2.1-1.3,1.5-2.4ZM7.8,4.4c0-.7.6-1.2,1.2-1.2s1.2.6,1.2,1.2v5.1c0,.7-.6,1.2-1.2,1.2s-1.2-.6-1.2-1.2v-5.1ZM9,14.8c-.8,0-1.4-.6-1.4-1.4s.7-1.4,1.4-1.4,1.4.6,1.4,1.4-.6,1.4-1.4,1.4Z"/>
-          </svg>
-        </span>
-        <span class="icon delete-swatch">
-          <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8,8-3.6,8-8S12.4,0,8,0ZM12.1,10.6l-1.6,1.6-2.6-2.6-2.6,2.6-1.6-1.6,2.6-2.6-2.6-2.6,1.6-1.6,2.6,2.6,2.6-2.6,1.6,1.6-2.6,2.6,2.6,2.6Z"/>
-          </svg>
-        </span>
-      </div>`;
-
-    swatches.insertBefore(container, addSwatchBtn);
-    return container;
-  }
-
-  // ── Background ───────────────────────────────────────────────────
-
-  function updateBackground() {
-    const L = S.colors[S.activeIndex !== -1 ? S.activeIndex : 0].L;
-    pickerWrap.style.backgroundColor = neutralP3(L);
-  }
-
-  // ── Multi-select visuals ─────────────────────────────────────────
-
-  function clearMultiVisuals() {
-    swatches.querySelectorAll('.swatch-container.multi-selected')
-      .forEach(el => el.classList.remove('multi-selected'));
-    handles.forEach(h => h.classList.remove('multi'));
-    lightHandles.forEach(h => h.classList.remove('multi'));
-    discRadialGuides.innerHTML = '';
-  }
-
-  function applyMultiVisuals() {
-    for (const i of S.multiSelect) {
-      swatchEl(i)?.classList.add('multi-selected');
-      handles[i]?.classList.add('multi');
-      lightHandles[i]?.classList.add('multi');
-    }
-  }
-
-  // ── Full render ──────────────────────────────────────────────────
+  // ── Core render ──────────────────────────────────────────────────
+  // Draws disc, lightbar, positions handles, updates guides and
+  // overlay light/dark classes. Application-level updates (swatches,
+  // mesh, background, hex field) are added by main.js via patching.
 
   function render() {
     drawDisc();
@@ -682,16 +515,7 @@ export function createPicker(S, cfg) {
     updateAllDiscHandles();
     updateLightHandles();
     S.colors.forEach((_, i) => lightHandles[i]?.classList.toggle('light-color', S.colors[i].L > MIDDLE_GRAY));
-
-    if (S.isMultiMode()) {
-      S.multiSelect.forEach(i => updateSwatch(i));
-    } else {
-      updateSwatch(S.activeIndex);
-    }
-
-    updateBackground();
     updateDiscGuides();
-    updateMesh();
     const lightBg = S.activeIndex !== -1 && S.colors[S.activeIndex].L > MIDDLE_GRAY;
     discOverlay.classList.toggle('light-color', lightBg);
     lightbarOverlay.classList.toggle('light-color', lightBg);
@@ -704,10 +528,8 @@ export function createPicker(S, cfg) {
     handlePos, yToToeL, toeLToY,
     els: { wheelCanvas, lightbarCanvas, discOverlay, lightbarOverlay, pickerWrap, swatches, addSwatchBtn },
     handles, lightHandles,
-    render, invalidateCache, updateSwatch, updateDiscGuides, updateMesh,
-    createHandle, createLightHandle, setHandleActive, reindex, swatchEl,
-    createSwatchDOM,
-    clearMultiVisuals, applyMultiVisuals, computeFrozenEdges,
+    render, invalidateCache, updateDiscGuides,
+    createHandle, createLightHandle, setHandleActive,
     hideHueLine() { discHueLine.setAttribute('opacity', '0'); },
   };
 }
