@@ -427,11 +427,17 @@ export function createPicker(S, cfg) {
   function updateDiscGuides() {
     discHueLine.setAttribute('opacity', '0');
     discChromaPath.setAttribute('opacity', '0');
+    discRadialGuides.innerHTML = '';
 
     if (S.activeIndex === -1) return null;
 
+    // Guides are a hover state: only visible while the mouse is over the
+    // picker wrap, or while a drag is in progress. Mod keys may be held
+    // globally, but guide visibility is gated here.
+    const guidesVisible = S.mouseInPickerWrap || S.dragging;
+    if (!guidesVisible) return null;
+
     if (S.isMultiMode()) {
-      discRadialGuides.innerHTML = '';
       if (S.modKeys.shift || S.modKeys.meta) {
         const refL = S.colors[S.activeIndex]?.L ?? S.colors[[...S.multiSelect][0]].L;
         const stroke = refL > MIDDLE_GRAY ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.3)';
@@ -460,7 +466,6 @@ export function createPicker(S, cfg) {
     const col    = S.colors[S.activeIndex];
     const stroke = col.L > MIDDLE_GRAY ? '#000' : '#fff';
 
-    discRadialGuides.innerHTML = '';
     if ((S.modKeys.shift || S.modKeys.meta) && S.hoveredHandle !== -1 && S.hoveredHandle !== S.activeIndex) {
       const dimStroke = col.L > MIDDLE_GRAY ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.4)';
       drawGuideForColor(S.colors[S.hoveredHandle], dimStroke);
