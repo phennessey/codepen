@@ -146,6 +146,24 @@ export function renderLightbarPixels(imageData, lbWidth, lbHeight, h, s) {
   }
 }
 
+// Generate a CSS linear-gradient string (display-p3) for a hue/sat column.
+// `stops` color stops are evenly distributed in toe-L space (top = lr 1, bottom = 0).
+// Browsers interpolate between stops on the GPU compositor — far cheaper
+// than painting every pixel via canvas, especially during drag.
+export function lightbarGradientCss(h, s, stops = 64) {
+  const parts = [];
+  for (let i = 0; i < stops; i++) {
+    const t = i / (stops - 1);    // 0 at top → 1 at bottom
+    const lr = 1 - t;             // top of bar = lr 1, bottom = lr 0
+    convert(toOKLab(h, s, lr), OKLab, DisplayP3, _p3);
+    const r = Math.max(0, _p3[0]).toFixed(4);
+    const g = Math.max(0, _p3[1]).toFixed(4);
+    const b = Math.max(0, _p3[2]).toFixed(4);
+    parts.push(`color(display-p3 ${r} ${g} ${b}) ${(t * 100).toFixed(2)}%`);
+  }
+  return `linear-gradient(to bottom, ${parts.join(', ')})`;
+}
+
 // ── SVG polar-path builder ───────────────────────────────────────────
 
 export function polarPath(steps, radiusFn, discR) {
@@ -238,7 +256,7 @@ export function createPicker(S, cfg) {
 
   // ── DOM lookups ──────────────────────────────────────────────────
   const wheelCanvas     = document.getElementById('wheel');
-  const lightbarCanvas  = document.getElementById('lightbar');
+  const lightbarEl      = document.getElementById('lightbar');
   const discOverlay     = document.getElementById('disc-overlay');
   const lightbarOverlay = document.getElementById('lightbar-overlay');
   const pickerWrap      = document.querySelector('.picker-wrap');
@@ -252,7 +270,9 @@ export function createPicker(S, cfg) {
   }
   initCanvas(wheelCanvas, DISC_SIZE, DISC_SIZE);
   wheelCanvas.style.clipPath = `circle(${DISC_R}px at ${DISC_R}px ${DISC_R}px)`;
-  initCanvas(lightbarCanvas, LB_WIDTH, LB_HEIGHT);
+
+  // The lightbar is a div with a CSS gradient — sized to match overlay.
+  lightbarEl.style.cssText += `width:${LB_WIDTH}px;height:${LB_HEIGHT}px;display:block;`;
 
   function initOverlay(svg, w, h) { setAttrs(svg, { width: w, height: h }); }
   initOverlay(discOverlay, DISC_SIZE, DISC_SIZE);
@@ -286,11 +306,11 @@ export function createPicker(S, cfg) {
 
   // ── Render cache ─────────────────────────────────────────────────
   let disc_img = null, disc_L = -1;
-  let lightbar_img = null, lightbar_key = null;
+  let lightbar_key = null;
 
   function invalidateCache() {
     disc_img = null; disc_L = -1;
-    lightbar_img = null; lightbar_key = null;
+    lightbar_key = null;
   }
 
   const handles = [];
@@ -349,20 +369,13 @@ export function createPicker(S, cfg) {
   }
 
   // ── Lightbar drawing ─────────────────────────────────────────────
+  // Uses a CSS gradient on a div instead of canvas pixels — the browser
+  // composites it on the GPU. Skip work if (h, s) hasn't changed.
   function drawLightbar() {
-    const ctx    = lightbarCanvas.getContext('2d', { colorSpace: 'display-p3' });
     const active = S.colors[S.activeIndex !== -1 ? S.activeIndex : 0];
     const key    = `${active.h.toFixed(4)}_${active.s.toFixed(4)}`;
-
-    if (lightbar_img && lightbar_key === key) {
-      ctx.putImageData(lightbar_img, 0, 0);
-      return;
-    }
-
-    const img = ctx.createImageData(LB_WIDTH, LB_HEIGHT);
-    renderLightbarPixels(img, LB_WIDTH, LB_HEIGHT, active.h, active.s);
-    ctx.putImageData(img, 0, 0);
-    lightbar_img = ctx.getImageData(0, 0, LB_WIDTH, LB_HEIGHT);
+    if (lightbar_key === key) return;
+    lightbarEl.style.background = lightbarGradientCss(active.h, active.s);
     lightbar_key = key;
   }
 
@@ -510,7 +523,7 @@ export function createPicker(S, cfg) {
   return {
     DISC_R, HANDLE_OUTER,
     handlePos, yToToeL, toeLToY,
-    els: { wheelCanvas, lightbarCanvas, discOverlay, lightbarOverlay, pickerWrap, swatches, plusMinusBtn },
+    els: { wheelCanvas, lightbarEl, discOverlay, lightbarOverlay, pickerWrap, swatches, plusMinusBtn },
     handles, lightHandles,
     render, invalidateCache, updateDiscGuides,
     createHandle, createLightHandle, setHandleActive,
