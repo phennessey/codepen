@@ -416,7 +416,7 @@ export function createPicker(S, cfg) {
   const HANDLE_HTML = `<circle r="${HANDLE_R}" fill="transparent" stroke-width="${HANDLE_SW}" class="circle"/>`;
   const LIGHT_HANDLE_HTML =
     `<rect x="-10" y="-5" width="20" height="10" rx="5" class="pill pill-outer"/>` +
-    `<rect x="-8"  y="-3" width="16" height="6"  rx="3" class="pill pill-inner"/>`;
+    `<rect x="-10" y="-5" width="20" height="10" rx="5" class="pill pill-inner"/>`;
 
   function createHandleG(parent, cls, html, index) {
     const g = document.createElementNS(ns, 'g');
