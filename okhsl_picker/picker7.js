@@ -406,26 +406,17 @@ export function createPicker(S, cfg) {
 
   // Handle markup.
   //
-  // The disc handle is one <circle class="circle">. Its visual
-  // properties (fill, stroke, stroke-width) stay as SVG attributes
-  // because the disc handle's styling rules already live in CSS and
-  // don't need to compose with additional rings.
+  // Disc handle: one <circle> with visual attrs baked in (its styling
+  // rules in CSS don't need to compose with additional rings).
   //
-  // The lightbar handle is a group with TWO stacked <rect> elements:
-  //   .pill.pill-outer — drawn first, appears behind
-  //   .pill.pill-inner — drawn on top
-  // Both carry ONLY geometry attributes (x, y, width, height, rx);
-  // no visual attributes (no fill, no stroke, no stroke-width). This
-  // leaves the visual appearance entirely to CSS — stroke colors,
-  // stroke widths, fills, and any size differential between the two
-  // rects (e.g. via CSS transforms, or via x/y/width/height/rx
-  // overrides on .pill-outer). The two elements give the consumer
-  // CSS clean hooks for nested-ring designs without needing any
-  // SVG `outline` or `filter` tricks.
+  // Lightbar handle: two bare <rect> elements, no attributes at all.
+  // Consumer CSS sets everything — x, y, width, height, rx, stroke,
+  // stroke-width, fill — directly as CSS properties. The outer rect
+  // is drawn first so it appears behind the inner one.
   const HANDLE_HTML = `<circle r="${HANDLE_R}" fill="transparent" stroke-width="${HANDLE_SW}" class="circle"/>`;
   const LIGHT_HANDLE_HTML =
-    `<rect x="-8" y="-3" width="16" height="6" rx="3" class="pill pill-outer"/>` +
-    `<rect x="-8" y="-3" width="16" height="6" rx="3" class="pill pill-inner"/>`;
+    `<rect class="pill pill-outer"/>` +
+    `<rect class="pill pill-inner"/>`;
 
   function createHandleG(parent, cls, html, index) {
     const g = document.createElementNS(ns, 'g');
