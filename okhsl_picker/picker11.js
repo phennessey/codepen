@@ -404,19 +404,9 @@ export function createPicker(S, cfg) {
   const handles = [];
   const lightHandles = [];
 
-  // Handle markup.
-  //
-  // Disc handle: one <circle> with visual attrs baked in.
-  //
-  // Lightbar handle: two <rect> elements with geometry (x, y, width,
-  // height, rx) baked in as SVG attributes so they render reliably
-  // across browsers. Inner is 16×6; outer is 20×10. Both centered on
-  // the origin. Visual properties (stroke, stroke-width, fill) are
-  // NOT baked in — CSS owns those.
+  // Handle markup
   const HANDLE_HTML = `<circle r="${HANDLE_R}" fill="transparent" stroke-width="${HANDLE_SW}" class="circle"/>`;
-  const LIGHT_HANDLE_HTML =
-    `<rect x="-8"  y="-3" width="16" height="6"  rx="3" class="pill pill-inner"/>` +
-    `<rect x="-8"  y="-3" width="16" height="6"  rx="3" class="pill pill-outer"/>`;
+  const LIGHT_HANDLE_HTML = `<rect x="-8"  y="-3" width="16" height="6" rx="3" class="pill"/>`;
 
   function createHandleG(parent, cls, html, index) {
     const g = document.createElementNS(ns, 'g');
